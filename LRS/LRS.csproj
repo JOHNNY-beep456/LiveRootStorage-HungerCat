@@ -164,10 +164,10 @@
     <PublishTrimmed Condition="'$(Configuration)' != 'Debug'">True</PublishTrimmed>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <DefaultLanguage>en-US</DefaultLanguage>
-    <PackageCertificateThumbprint>FCF4A931F765806560FDBC916B60C7AAC7255C7F</PackageCertificateThumbprint>
-    <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
-    <GenerateAppInstallerFile>True</GenerateAppInstallerFile>
-    <AppxPackageSigningTimestampServerUrl>http://timestamp.digicert.com</AppxPackageSigningTimestampServerUrl>
+    <PackageCertificateThumbprint></PackageCertificateThumbprint>
+    <AppxPackageSigningEnabled>False</AppxPackageSigningEnabled>
+    <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
+    <AppxPackageSigningTimestampServerUrl></AppxPackageSigningTimestampServerUrl>
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <GenerateTestArtifacts>False</GenerateTestArtifacts>
@@ -176,4 +176,10 @@
     <AppInstallerUri>C:\Program Files\</AppInstallerUri>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
   </PropertyGroup>
+  <Target Name="CreateDefaultLockScreenLogo" BeforeTargets="GenerateProjectPriFile">
+    <ItemGroup>
+      <_LockScreenSrc Include="Assets\LockScreenLogo.scale-200_altform-unplated.png" />
+    </ItemGroup>
+    <Copy SourceFiles="@(_LockScreenSrc)" DestinationFiles="Assets\LockScreenLogo.png" SkipUnchangedFiles="true" />
+  </Target>
 </Project>
