@@ -53,6 +53,7 @@ namespace LRS
 		/// </summary>
 		public App()
         {
+            Environment.SetEnvironmentVariable("MICROSOFT_WINDOWSAPPRUNTIME_BASE_DIRECTORY", AppContext.BaseDirectory);
             InitializeComponent();
             _host = Host.CreateDefaultBuilder().ConfigureServices((context, services) =>
             {
