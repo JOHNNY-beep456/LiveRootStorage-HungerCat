@@ -429,26 +429,4 @@ namespace LRS.UserControls
         private void OnPropertyChanged(string name) =>
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }
-
-    public class LastToVisibilityConverter : Microsoft.UI.Xaml.Data.IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, string language)
-        {
-            return (value is bool isLast && isLast) ? Visibility.Collapsed : Visibility.Visible;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, string language)
-        {
-            throw new NotImplementedException();
-        }
-    }
-
-    public class BreadcrumbSegment
-    {
-        public string DisplayName { get; set; }
-        public string FullPath { get; set; }
-        public bool IsLast { get; set; }
-        public ICommand NavigateCommand { get; set; }
-        public ICommand NavigateSubCommand { get; set; }
-    }
 }

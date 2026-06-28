@@ -25,10 +25,12 @@ namespace LRS.ViewModels
 	public partial class MainWindowViewModel : ViewModelBase
 	{
 		private IFileOperator _fileOperator;
-		public MainWindowViewModel(IIconProvider iconProvider, Microsoft.UI.Dispatching.DispatcherQueue uiDispatcherQueue, Configs configs, IFileOperator fileOperator)
+		private ShellContextMenuService _shellContextMenuService;
+		public MainWindowViewModel(IIconProvider iconProvider, Microsoft.UI.Dispatching.DispatcherQueue uiDispatcherQueue, Configs configs, IFileOperator fileOperator, ShellContextMenuService shellContextMenuService)
 		{
 			AppConfigs = configs;
 			_fileOperator = fileOperator;
+			_shellContextMenuService = shellContextMenuService;
 			CurrentBreadcrumbPath = configs.HomePageFullPath;
 			_uiDispatcherQueue = uiDispatcherQueue;
 			_iconProvider = iconProvider;
@@ -201,6 +203,26 @@ namespace LRS.ViewModels
 			File.Create(newPath).Dispose();
 			await RefreshCurrentFolder();
 		}
+
+		[RelayCommand]
+		private async Task Refresh()
+		{
+			string currentPath = CurrentBreadcrumbPath;
+			var currentNode = SelectedFolder;
+			SelectedFolder = null;
+			await Task.Delay(10);
+			if (!string.IsNullOrEmpty(currentPath) && Directory.Exists(currentPath))
+			{
+				NavigateToNewPath(currentPath);
+			}
+			else if (currentNode != null)
+			{
+				SelectedFolder = currentNode;
+			}
+			_shellContextMenuService.ClearCache();
+		}
+
+		public ShellContextMenuService ShellContextMenu => _shellContextMenuService;
 
 		private async Task RefreshCurrentFolder()
 		{

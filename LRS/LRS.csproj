@@ -6,6 +6,8 @@
     <RootNamespace>LRS</RootNamespace>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <Platforms>x86;x64;ARM64</Platforms>
+    <Platform>x64</Platform>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <RuntimeIdentifiers>win-x86;win-x64;win-arm64</RuntimeIdentifiers>
     <PublishProfile>win-$(Platform).pubxml</PublishProfile>
     <UseWinUI>true</UseWinUI>
@@ -14,6 +16,10 @@
     <EnableXamlDiagnostics>false</EnableXamlDiagnostics>
     <Nullable>enable</Nullable>
 	<LangVersion>preview</LangVersion>
+	<WindowsPackageType>None</WindowsPackageType>
+	<WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
+	<PublishTrimmed>false</PublishTrimmed>
+	<NoWarn>$(NoWarn);NU1701;MSB3277;CS0108;CS0168;CS8600;CS8602;CS8603;CS8604;CS8612;CS8613;CS8618;CS8619;CS8622;CS8625;CS8767;CS1998;CS0067;WMC1509;PRI257;PRI263;NETSDK1198;MVVMTK0034;IL2026;IL2059;IL3000;IL3002</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <Content Remove="Assets\BadgeLogo.scale-100.png" />
@@ -158,13 +164,13 @@
     <PublishReadyToRun Condition="'$(Configuration)' == 'Debug'">False</PublishReadyToRun>
     <PublishReadyToRun Condition="'$(Configuration)' != 'Debug'">True</PublishReadyToRun>
     <PublishTrimmed Condition="'$(Configuration)' == 'Debug'">False</PublishTrimmed>
-    <PublishTrimmed Condition="'$(Configuration)' != 'Debug'">True</PublishTrimmed>
+    <PublishTrimmed Condition="'$(Configuration)' != 'Debug' and '$(WindowsAppSDKSelfContained)' != 'true'">True</PublishTrimmed>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <DefaultLanguage>zh-Hans</DefaultLanguage>
-    <PackageCertificateThumbprint>FCF4A931F765806560FDBC916B60C7AAC7255C7F</PackageCertificateThumbprint>
-    <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
-    <GenerateAppInstallerFile>True</GenerateAppInstallerFile>
-    <AppxPackageSigningTimestampServerUrl>http://timestamp.digicert.com</AppxPackageSigningTimestampServerUrl>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <PackageCertificateThumbprint></PackageCertificateThumbprint>
+    <AppxPackageSigningEnabled>False</AppxPackageSigningEnabled>
+    <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
+    <AppxPackageSigningTimestampServerUrl></AppxPackageSigningTimestampServerUrl>
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <GenerateTestArtifacts>False</GenerateTestArtifacts>
@@ -173,4 +179,10 @@
     <AppInstallerUri>C:\Program Files\</AppInstallerUri>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
   </PropertyGroup>
+  <Target Name="CreateDefaultLockScreenLogo" BeforeTargets="GenerateProjectPriFile">
+    <ItemGroup>
+      <_LockScreenSrc Include="Assets\LockScreenLogo.scale-200_altform-unplated.png" />
+    </ItemGroup>
+    <Copy SourceFiles="@(_LockScreenSrc)" DestinationFiles="Assets\LockScreenLogo.png" SkipUnchangedFiles="true" />
+  </Target>
 </Project>

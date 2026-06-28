@@ -1,0 +1,419 @@
+PS F:\code\项目添加Win10右键菜单> dotnet build LRS\LRS.csproj
+  正在确定要还原的项目…
+F:\code\项目添加Win10右键菜单\LRS\LRS.csproj : warning NU1701: 已使用“.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2,
+.NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NE
+TFramework,Version=v4.8.1”而不是项目目标框架“net8.0-windows10.0.19041”还原包“Isg.Collections 1.0.1”。此包可能与项目不完全兼容。
+  已还原 F:\code\项目添加Win10右键菜单\LRS\LRS.csproj (用时 25.63 秒)。
+F:\code\项目添加Win10右键菜单\LRS\LRS.csproj : warning NU1701: 已使用“.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2,
+.NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NE
+TFramework,Version=v4.8.1”而不是项目目标框架“net8.0-windows10.0.19041”还原包“Isg.Collections 1.0.1”。此包可能与项目不完全兼容。
+C:\Program Files\dotnet\sdk\8.0.422\Microsoft.Common.CurrentVersion.targets(2412,5): warning MSB3277: 发现无法解析的“System.Re
+flection.Metadata”的不同版本之间存在冲突。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+C:\Program Files\dotnet\sdk\8.0.422\Microsoft.Common.CurrentVersion.targets(2412,5): warning MSB3277: “System.Reflectio
+n.Metadata, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a”与“System.Reflection.Metadata, Version=10.
+0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a”之间存在冲突。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+C:\Program Files\dotnet\sdk\8.0.422\Microsoft.Common.CurrentVersion.targets(2412,5): warning MSB3277:     已选择“System.Re
+flection.Metadata, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a”，因为它是主版本而“System.Reflection.Metada
+ta, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a”不是。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+C:\Program Files\dotnet\sdk\8.0.422\Microsoft.Common.CurrentVersion.targets(2412,5): warning MSB3277:     依赖于“System.Re
+flection.Metadata, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a”[C:\Program Files\dotnet\packs\Mic
+rosoft.NETCore.App.Ref\8.0.28\ref\net8.0\System.Reflection.Metadata.dll]的引用。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+C:\Program Files\dotnet\sdk\8.0.422\Microsoft.Common.CurrentVersion.targets(2412,5): warning MSB3277:         C:\Progra
+m Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.28\ref\net8.0\System.Reflection.Metadata.dll [F:\code\项目添加Win10右键菜单\
+LRS\LRS.csproj]
+C:\Program Files\dotnet\sdk\8.0.422\Microsoft.Common.CurrentVersion.targets(2412,5): warning MSB3277:           导致引用“C:
+\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.28\ref\net8.0\System.Reflection.Metadata.dll”的项目文件项 Include 特
+性。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+C:\Program Files\dotnet\sdk\8.0.422\Microsoft.Common.CurrentVersion.targets(2412,5): warning MSB3277:             C:\Pr
+ogram Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.28\ref/net8.0/System.Reflection.Metadata.dll [F:\code\项目添加Win10右
+键菜单\LRS\LRS.csproj]
+C:\Program Files\dotnet\sdk\8.0.422\Microsoft.Common.CurrentVersion.targets(2412,5): warning MSB3277:     依赖于或已统一到“Syst
+em.Reflection.Metadata, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a”[] 的引用。 [F:\code\项目添加Win10右键
+菜单\LRS\LRS.csproj]
+C:\Program Files\dotnet\sdk\8.0.422\Microsoft.Common.CurrentVersion.targets(2412,5): warning MSB3277:         C:\Users\
+Administrator\.nuget\packages\system.drawing.common\10.0.9\lib\net8.0\System.Private.Windows.Core.dll [F:\code\项目添加Win1
+0右键菜单\LRS\LRS.csproj]
+C:\Program Files\dotnet\sdk\8.0.422\Microsoft.Common.CurrentVersion.targets(2412,5): warning MSB3277:           导致引用“C:
+\Users\Administrator\.nuget\packages\system.drawing.common\10.0.9\lib\net8.0\System.Private.Windows.Core.dll”的项目文件项 Inc
+lude 特性。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+C:\Program Files\dotnet\sdk\8.0.422\Microsoft.Common.CurrentVersion.targets(2412,5): warning MSB3277:             C:\Us
+ers\Administrator\.nuget\packages\system.drawing.common\10.0.9\lib\net8.0\System.Private.Windows.Core.dll [F:\code\项目添加
+Win10右键菜单\LRS\LRS.csproj]
+C:\Program Files\dotnet\sdk\8.0.422\Microsoft.Common.CurrentVersion.targets(2412,5): warning MSB3277:             C:\Us
+ers\Administrator\.nuget\packages\system.drawing.common\10.0.9\lib\net8.0\System.Drawing.Common.dll [F:\code\项目添加Win10右
+键菜单\LRS\LRS.csproj]
+C:\Program Files\dotnet\sdk\8.0.422\Microsoft.Common.CurrentVersion.targets(2412,5): warning MSB3277:             C:\Us
+ers\Administrator\.nuget\packages\system.drawing.common\10.0.9\lib\net8.0\System.Private.Windows.GdiPlus.dll [F:\code\项
+目添加Win10右键菜单\LRS\LRS.csproj]
+C:\Program Files\dotnet\sdk\8.0.422\Microsoft.Common.CurrentVersion.targets(2412,5): warning MSB3277: 发现无法解析的“System.Co
+llections.Immutable”的不同版本之间存在冲突。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+C:\Program Files\dotnet\sdk\8.0.422\Microsoft.Common.CurrentVersion.targets(2412,5): warning MSB3277: “System.Collectio
+ns.Immutable, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a”与“System.Collections.Immutable, Version
+=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a”之间存在冲突。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+C:\Program Files\dotnet\sdk\8.0.422\Microsoft.Common.CurrentVersion.targets(2412,5): warning MSB3277:     已选择“System.Co
+llections.Immutable, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a”，因为它是主版本而“System.Collections.Imm
+utable, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a”不是。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+C:\Program Files\dotnet\sdk\8.0.422\Microsoft.Common.CurrentVersion.targets(2412,5): warning MSB3277:     依赖于“System.Co
+llections.Immutable, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a”[C:\Program Files\dotnet\packs\M
+icrosoft.NETCore.App.Ref\8.0.28\ref\net8.0\System.Collections.Immutable.dll]的引用。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+C:\Program Files\dotnet\sdk\8.0.422\Microsoft.Common.CurrentVersion.targets(2412,5): warning MSB3277:         C:\Progra
+m Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.28\ref\net8.0\System.Collections.Immutable.dll [F:\code\项目添加Win10右键菜
+单\LRS\LRS.csproj]
+C:\Program Files\dotnet\sdk\8.0.422\Microsoft.Common.CurrentVersion.targets(2412,5): warning MSB3277:           导致引用“C:
+\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.28\ref\net8.0\System.Collections.Immutable.dll”的项目文件项 Include
+ 特性。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+C:\Program Files\dotnet\sdk\8.0.422\Microsoft.Common.CurrentVersion.targets(2412,5): warning MSB3277:             C:\Pr
+ogram Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.28\ref/net8.0/System.Collections.Immutable.dll [F:\code\项目添加Win1
+0右键菜单\LRS\LRS.csproj]
+C:\Program Files\dotnet\sdk\8.0.422\Microsoft.Common.CurrentVersion.targets(2412,5): warning MSB3277:     依赖于或已统一到“Syst
+em.Collections.Immutable, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a”[] 的引用。 [F:\code\项目添加Win10
+右键菜单\LRS\LRS.csproj]
+C:\Program Files\dotnet\sdk\8.0.422\Microsoft.Common.CurrentVersion.targets(2412,5): warning MSB3277:         C:\Users\
+Administrator\.nuget\packages\system.drawing.common\10.0.9\lib\net8.0\System.Private.Windows.Core.dll [F:\code\项目添加Win1
+0右键菜单\LRS\LRS.csproj]
+C:\Program Files\dotnet\sdk\8.0.422\Microsoft.Common.CurrentVersion.targets(2412,5): warning MSB3277:           导致引用“C:
+\Users\Administrator\.nuget\packages\system.drawing.common\10.0.9\lib\net8.0\System.Private.Windows.Core.dll”的项目文件项 Inc
+lude 特性。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+C:\Program Files\dotnet\sdk\8.0.422\Microsoft.Common.CurrentVersion.targets(2412,5): warning MSB3277:             C:\Us
+ers\Administrator\.nuget\packages\system.drawing.common\10.0.9\lib\net8.0\System.Private.Windows.Core.dll [F:\code\项目添加
+Win10右键菜单\LRS\LRS.csproj]
+C:\Program Files\dotnet\sdk\8.0.422\Microsoft.Common.CurrentVersion.targets(2412,5): warning MSB3277:             C:\Us
+ers\Administrator\.nuget\packages\system.drawing.common\10.0.9\lib\net8.0\System.Drawing.Common.dll [F:\code\项目添加Win10右
+键菜单\LRS\LRS.csproj]
+C:\Program Files\dotnet\sdk\8.0.422\Microsoft.Common.CurrentVersion.targets(2412,5): warning MSB3277:             C:\Us
+ers\Administrator\.nuget\packages\system.drawing.common\10.0.9\lib\net8.0\System.Private.Windows.GdiPlus.dll [F:\code\项
+目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\UserControls\LRSBreadcrumb.xaml.cs(428,50): warning CS8612: “event PropertyChangedEventHandle
+r LRSBreadcrumb.PropertyChanged”的类型中引用类型的为 Null 性与隐式实现的成员“event PropertyChangedEventHandler? INotifyPropertyChanged.Pro
+pertyChanged”不匹配。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\Services\ShellIconHelper.cs(62,35): warning CS8613: “Task<ImageSource?> ShellIconHelper.GetIc
+onAsync(string fullPath, bool isFolder, DispatcherQueue dispatcherQueue, uint size = 32)”的返回类型中引用类型的为 Null 性与隐式实现的成员“Ta
+sk<ImageSource>? IIconProvider.GetIconAsync(string Path, bool isFolder, DispatcherQueue dispatcherQueue, uint size = 32
+)”不匹配。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\UserControls\LRSBreadcrumb.xaml.cs(424,25): warning CS8767: “bool RelayCommand.CanExecute(obj
+ect parameter)”的参数“parameter”类型中引用类型的为 Null 性与隐式实现的成员“bool ICommand.CanExecute(object? parameter)”不匹配(可能是由于为 Null 性特性)。
+ [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\UserControls\LRSBreadcrumb.xaml.cs(425,25): warning CS8767: “void RelayCommand.Execute(object
+ parameter)”的参数“parameter”类型中引用类型的为 Null 性与隐式实现的成员“void ICommand.Execute(object? parameter)”不匹配(可能是由于为 Null 性特性)。 [F:\c
+ode\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\UserControls\LRSBreadcrumb.xaml.cs(423,39): warning CS8612: “event EventHandler RelayCommand.
+CanExecuteChanged”的类型中引用类型的为 Null 性与隐式实现的成员“event EventHandler? ICommand.CanExecuteChanged”不匹配。 [F:\code\项目添加Win10右键菜单\
+LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\UserControls\LRSBreadcrumb.xaml.cs(418,73): warning CS8625: 无法将 null 字面量转换为非 null 的引用类型。 [F:\
+code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\UserControls\TreeDataGrid.xaml.cs(56,51): warning CS0108: “TreeDataGrid.ContextFlyoutProperty
+”隐藏继承的成员“UIElement.ContextFlyoutProperty”。如果是有意隐藏，请使用关键字 new。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\UserControls\TreeDataGrid.xaml.cs(112,28): warning CS0108: “TreeDataGrid.ContextFlyout”隐藏继承的成
+员“UIElement.ContextFlyout”。如果是有意隐藏，请使用关键字 new。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\Models\LRSBreadcrumbModel.cs(13,17): warning CS8618: 在退出构造函数时，不可为 null 的 属性 "DisplayName" 必须包
+含非 null 值。请考虑添加 "required" 修饰符或将该 属性 声明为可为 null。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\Models\LRSBreadcrumbModel.cs(14,17): warning CS8618: 在退出构造函数时，不可为 null 的 属性 "FullPath" 必须包含非
+null 值。请考虑添加 "required" 修饰符或将该 属性 声明为可为 null。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\Models\LRSBreadcrumbModel.cs(16,19): warning CS8618: 在退出构造函数时，不可为 null 的 属性 "NavigateCommand"
+ 必须包含非 null 值。请考虑添加 "required" 修饰符或将该 属性 声明为可为 null。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\Models\LRSBreadcrumbModel.cs(17,19): warning CS8618: 在退出构造函数时，不可为 null 的 属性 "NavigateSubComma
+nd" 必须包含非 null 值。请考虑添加 "required" 修饰符或将该 属性 声明为可为 null。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\Views\SettingsView.xaml.cs(20,13): warning CS8602: 解引用可能出现空引用。 [F:\code\项目添加Win10右键菜单\LRS\LRS
+.csproj]
+F:\code\项目添加Win10右键菜单\LRS\Services\MainIconProvider.cs(16,10): warning CS8618: 在退出构造函数时，不可为 null 的 字段 "_iconProvider" 必
+须包含非 null 值。请考虑添加 "required" 修饰符或将该 字段 声明为可为 null。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\Views\FileTreeView.xaml.cs(24,31): warning CS8600: 将 null 文本或可能的 null 值转换为不可为 null 类型。 [F:\co
+de\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\Views\MainWindowView.xaml.cs(17,35): warning CS8622: “void MainWindowView.OnVMPropertyChanged
+(object sender, PropertyChangedEventArgs e)”的参数“sender”类型中引用类型的为 Null 性与目标委托“PropertyChangedEventHandler”不匹配(可能是由于为 Nul
+l 性特性)。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\ViewModels\PlaceHolderNodeViewModel.cs(7,65): warning CS8625: 无法将 null 字面量转换为非 null 的引用类型。 [F
+:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\ViewModels\PlaceHolderNodeViewModel.cs(7,71): warning CS8625: 无法将 null 字面量转换为非 null 的引用类型。 [F
+:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\UserControls\LRSBreadcrumb.xaml.cs(448,23): warning CS8618: 在退出构造函数时，不可为 null 的 属性 "DisplayNa
+me" 必须包含非 null 值。请考虑添加 "required" 修饰符或将该 属性 声明为可为 null。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\UserControls\LRSBreadcrumb.xaml.cs(449,23): warning CS8618: 在退出构造函数时，不可为 null 的 属性 "FullPath"
+ 必须包含非 null 值。请考虑添加 "required" 修饰符或将该 属性 声明为可为 null。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\UserControls\LRSBreadcrumb.xaml.cs(451,25): warning CS8618: 在退出构造函数时，不可为 null 的 属性 "NavigateC
+ommand" 必须包含非 null 值。请考虑添加 "required" 修饰符或将该 属性 声明为可为 null。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\UserControls\LRSBreadcrumb.xaml.cs(452,25): warning CS8618: 在退出构造函数时，不可为 null 的 属性 "NavigateS
+ubCommand" 必须包含非 null 值。请考虑添加 "required" 修饰符或将该 属性 声明为可为 null。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\UserControls\LRSBreadcrumb.xaml.cs(109,16): warning CS8618: 在退出构造函数时，不可为 null 的 字段 "_composit
+or" 必须包含非 null 值。请考虑添加 "required" 修饰符或将该 字段 声明为可为 null。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\UserControls\LRSBreadcrumb.xaml.cs(109,16): warning CS8618: 在退出构造函数时，不可为 null 的 事件 "PropertyC
+hanged" 必须包含非 null 值。请考虑添加 "required" 修饰符或将该 事件 声明为可为 null。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\ViewModels\Configs.cs(29,16): warning CS8618: 在退出构造函数时，不可为 null 的 字段 "configuration" 必须包含非 nu
+ll 值。请考虑添加 "required" 修饰符或将该 字段 声明为可为 null。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\UserControls\LRSBreadcrumb.xaml.cs(123,39): warning CS8604: “bool LRSBreadcrumb.IsButtonOrDes
+cendant(DependencyObject element)”中的形参“element”可能传入 null 引用实参。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\Views\FileTreeView.xaml.cs(62,31): warning CS8622: “void FileTreeView.OnTreeFlyoutOpening(obj
+ect sender, object e)”的参数“sender”类型中引用类型的为 Null 性与目标委托“EventHandler<object>”不匹配(可能是由于为 Null 性特性)。 [F:\code\项目添加Win10右键菜
+单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\ViewModels\MainWindowViewModel.cs(37,53): warning CS8622: “void MainWindowViewModel.NavigateT
+oPath(string path)”的参数“path”类型中引用类型的为 Null 性与目标委托“Action<string?>”不匹配(可能是由于为 Null 性特性)。 [F:\code\项目添加Win10右键菜单\LRS\LRS.
+csproj]
+F:\code\项目添加Win10右键菜单\LRS\ViewModels\MainWindowViewModel.cs(38,58): warning CS8622: “void MainWindowViewModel.NavigateT
+oPath(string path)”的参数“path”类型中引用类型的为 Null 性与目标委托“Action<string?>”不匹配(可能是由于为 Null 性特性)。 [F:\code\项目添加Win10右键菜单\LRS\LRS.
+csproj]
+F:\code\项目添加Win10右键菜单\LRS\Views\MiddleFilesView.xaml.cs(82,31): warning CS8622: “void MiddleFilesView.OnBaseFlyoutOpeni
+ng(object sender, object e)”的参数“sender”类型中引用类型的为 Null 性与目标委托“EventHandler<object>”不匹配(可能是由于为 Null 性特性)。 [F:\code\项目添加Wi
+n10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\ViewModels\FileSystemNodeViewModel.cs(80,41): warning CS8604: “MainIconProvider.MainIconProvi
+der(Configs configs)”中的形参“configs”可能传入 null 引用实参。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\ViewModels\FileSystemNodeViewModel.cs(64,10): warning CS8618: 在退出构造函数时，不可为 null 的 字段 "_config
+s" 必须包含非 null 值。请考虑添加 "required" 修饰符或将该 字段 声明为可为 null。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\App.xaml.cs(39,37): warning CS8618: 在退出构造函数时，不可为 null 的 属性 "SharedViewModel" 必须包含非 null 值。请考虑
+添加 "required" 修饰符或将该 属性 声明为可为 null。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\App.xaml.cs(40,34): warning CS8618: 在退出构造函数时，不可为 null 的 属性 "Services" 必须包含非 null 值。请考虑添加 "req
+uired" 修饰符或将该 属性 声明为可为 null。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\Services\WindowsIconProvider.cs(53,11): warning CS8603: 可能返回 null 引用。 [F:\code\项目添加Win10右键菜单\
+LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\Services\WindowsIconProvider.cs(48,22): warning CS0168: 声明了变量“ex”，但从未使用过 [F:\code\项目添加Win10右键
+菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\Services\WindowsIconProvider.cs(73,22): warning CS8625: 无法将 null 字面量转换为非 null 的引用类型。 [F:\code
+\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\Services\FileOperator.cs(109,23): warning CS8600: 将 null 文本或可能的 null 值转换为不可为 null 类型。 [F:\cod
+e\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\Services\FileOperator.cs(110,34): warning CS8604: “string Path.Combine(string path1, string p
+ath2)”中的形参“path1”可能传入 null 引用实参。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\Views\FileTreeView.xaml.cs(141,52): error CS1503: 参数 2: 无法从“Windows.Foundation.Point”转换为“Micr
+osoft.UI.Xaml.Controls.Primitives.FlyoutShowOptions” [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\UserControls\LRSBreadcrumb.xaml.cs(217,36): warning CS8604: “void LRSBreadcrumb.UpdateSegment
+s(string path)”中的形参“path”可能传入 null 引用实参。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\Services\WindowsIconProvider.cs(98,18): warning CS8602: 解引用可能出现空引用。 [F:\code\项目添加Win10右键菜单\LR
+S\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\Services\WindowsIconProvider.cs(100,18): warning CS8602: 解引用可能出现空引用。 [F:\code\项目添加Win10右键菜单\L
+RS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\Services\FileOperator.cs(118,21): warning CS1998: 此异步方法缺少 "await" 运算符，将以同步方式运行。请考虑使用 "await"
+运算符等待非阻止的 API 调用，或者使用 "await Task.Run(...)" 在后台线程上执行占用大量 CPU 的工作。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\Services\FileOperator.cs(176,13): warning CS8619: 类型“(IEnumerable<string>?, bool)”的值中引用类型的为 N
+ull 性与目标类型“(IEnumerable<string> FilePaths, bool IsCut)”不匹配。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\Services\FileOperator.cs(180,11): warning CS8619: 类型“(IEnumerable<string>?, bool)”的值中引用类型的为 N
+ull 性与目标类型“(IEnumerable<string> FilePaths, bool IsCut)”不匹配。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\UserControls\LRSBreadcrumb.xaml.cs(418,20): warning CS8618: 在退出构造函数时，不可为 null 的 事件 "CanExecut
+eChanged" 必须包含非 null 值。请考虑添加 "required" 修饰符或将该 事件 声明为可为 null。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\ViewModels\MainWindowViewModel.cs(434,62): warning CS8604: “FileSystemNodeViewModel.FileSyste
+mNodeViewModel(string fullPath, bool isDirectory, bool isPlaceholder, Configs configs, DispatcherQueue uiDispatcherQueu
+e, bool lazyLoad)”中的形参“configs”可能传入 null 引用实参。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\ViewModels\FileSystemNodeViewModel.cs(316,28): warning CS1998: 此异步方法缺少 "await" 运算符，将以同步方式运行。请
+考虑使用 "await" 运算符等待非阻止的 API 调用，或者使用 "await Task.Run(...)" 在后台线程上执行占用大量 CPU 的工作。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\UserControls\LRSBreadcrumb.xaml.cs(423,39): warning CS0067: 从不使用事件“LRSBreadcrumb.RelayCommand
+.CanExecuteChanged” [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+C:\Users\Administrator\.nuget\packages\microsoft.windowsappsdk.winui\2.2.1\buildTransitive\Microsoft.UI.Xaml.Markup.Com
+piler.interop.targets(847,9): XamlCompiler warning WMC1509: No LocalAssembly parameter given during MarkupCompilePass2
+for the currently building project.  This will likely cause type resolution errors for any types from the current proje
+ct. [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\UserControls\LRSBreadcrumb.xaml(12,10): XamlCompiler error WMC0001: Unknown type 'LastToVisib
+ilityConverter' in XML namespace 'using:LRS.UserControls' [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\UserControls\LRSBreadcrumb.xaml(113,26): XamlCompiler error WMC0909: Cannot resolve DataType
+local:BreadcrumbSegment [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+C:\Users\Administrator\.nuget\packages\microsoft.windowsappsdk.winui\2.2.1\buildTransitive\Microsoft.UI.Xaml.Markup.Com
+piler.interop.targets(847,9): Xaml Internal Error error WMC9999: 未将对象引用设置到对象的实例。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+
+生成失败。
+
+F:\code\项目添加Win10右键菜单\LRS\LRS.csproj : warning NU1701: 已使用“.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2,
+.NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NE
+TFramework,Version=v4.8.1”而不是项目目标框架“net8.0-windows10.0.19041”还原包“Isg.Collections 1.0.1”。此包可能与项目不完全兼容。
+F:\code\项目添加Win10右键菜单\LRS\LRS.csproj : warning NU1701: 已使用“.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2,
+.NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NE
+TFramework,Version=v4.8.1”而不是项目目标框架“net8.0-windows10.0.19041”还原包“Isg.Collections 1.0.1”。此包可能与项目不完全兼容。
+C:\Program Files\dotnet\sdk\8.0.422\Microsoft.Common.CurrentVersion.targets(2412,5): warning MSB3277: 发现无法解析的“System.Re
+flection.Metadata”的不同版本之间存在冲突。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+C:\Program Files\dotnet\sdk\8.0.422\Microsoft.Common.CurrentVersion.targets(2412,5): warning MSB3277: “System.Reflectio
+n.Metadata, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a”与“System.Reflection.Metadata, Version=10.
+0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a”之间存在冲突。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+C:\Program Files\dotnet\sdk\8.0.422\Microsoft.Common.CurrentVersion.targets(2412,5): warning MSB3277:     已选择“System.Re
+flection.Metadata, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a”，因为它是主版本而“System.Reflection.Metada
+ta, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a”不是。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+C:\Program Files\dotnet\sdk\8.0.422\Microsoft.Common.CurrentVersion.targets(2412,5): warning MSB3277:     依赖于“System.Re
+flection.Metadata, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a”[C:\Program Files\dotnet\packs\Mic
+rosoft.NETCore.App.Ref\8.0.28\ref\net8.0\System.Reflection.Metadata.dll]的引用。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+C:\Program Files\dotnet\sdk\8.0.422\Microsoft.Common.CurrentVersion.targets(2412,5): warning MSB3277:         C:\Progra
+m Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.28\ref\net8.0\System.Reflection.Metadata.dll [F:\code\项目添加Win10右键菜单\
+LRS\LRS.csproj]
+C:\Program Files\dotnet\sdk\8.0.422\Microsoft.Common.CurrentVersion.targets(2412,5): warning MSB3277:           导致引用“C:
+\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.28\ref\net8.0\System.Reflection.Metadata.dll”的项目文件项 Include 特
+性。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+C:\Program Files\dotnet\sdk\8.0.422\Microsoft.Common.CurrentVersion.targets(2412,5): warning MSB3277:             C:\Pr
+ogram Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.28\ref/net8.0/System.Reflection.Metadata.dll [F:\code\项目添加Win10右
+键菜单\LRS\LRS.csproj]
+C:\Program Files\dotnet\sdk\8.0.422\Microsoft.Common.CurrentVersion.targets(2412,5): warning MSB3277:     依赖于或已统一到“Syst
+em.Reflection.Metadata, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a”[] 的引用。 [F:\code\项目添加Win10右键
+菜单\LRS\LRS.csproj]
+C:\Program Files\dotnet\sdk\8.0.422\Microsoft.Common.CurrentVersion.targets(2412,5): warning MSB3277:         C:\Users\
+Administrator\.nuget\packages\system.drawing.common\10.0.9\lib\net8.0\System.Private.Windows.Core.dll [F:\code\项目添加Win1
+0右键菜单\LRS\LRS.csproj]
+C:\Program Files\dotnet\sdk\8.0.422\Microsoft.Common.CurrentVersion.targets(2412,5): warning MSB3277:           导致引用“C:
+\Users\Administrator\.nuget\packages\system.drawing.common\10.0.9\lib\net8.0\System.Private.Windows.Core.dll”的项目文件项 Inc
+lude 特性。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+C:\Program Files\dotnet\sdk\8.0.422\Microsoft.Common.CurrentVersion.targets(2412,5): warning MSB3277:             C:\Us
+ers\Administrator\.nuget\packages\system.drawing.common\10.0.9\lib\net8.0\System.Private.Windows.Core.dll [F:\code\项目添加
+Win10右键菜单\LRS\LRS.csproj]
+C:\Program Files\dotnet\sdk\8.0.422\Microsoft.Common.CurrentVersion.targets(2412,5): warning MSB3277:             C:\Us
+ers\Administrator\.nuget\packages\system.drawing.common\10.0.9\lib\net8.0\System.Drawing.Common.dll [F:\code\项目添加Win10右
+键菜单\LRS\LRS.csproj]
+C:\Program Files\dotnet\sdk\8.0.422\Microsoft.Common.CurrentVersion.targets(2412,5): warning MSB3277:             C:\Us
+ers\Administrator\.nuget\packages\system.drawing.common\10.0.9\lib\net8.0\System.Private.Windows.GdiPlus.dll [F:\code\项
+目添加Win10右键菜单\LRS\LRS.csproj]
+C:\Program Files\dotnet\sdk\8.0.422\Microsoft.Common.CurrentVersion.targets(2412,5): warning MSB3277: 发现无法解析的“System.Co
+llections.Immutable”的不同版本之间存在冲突。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+C:\Program Files\dotnet\sdk\8.0.422\Microsoft.Common.CurrentVersion.targets(2412,5): warning MSB3277: “System.Collectio
+ns.Immutable, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a”与“System.Collections.Immutable, Version
+=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a”之间存在冲突。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+C:\Program Files\dotnet\sdk\8.0.422\Microsoft.Common.CurrentVersion.targets(2412,5): warning MSB3277:     已选择“System.Co
+llections.Immutable, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a”，因为它是主版本而“System.Collections.Imm
+utable, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a”不是。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+C:\Program Files\dotnet\sdk\8.0.422\Microsoft.Common.CurrentVersion.targets(2412,5): warning MSB3277:     依赖于“System.Co
+llections.Immutable, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a”[C:\Program Files\dotnet\packs\M
+icrosoft.NETCore.App.Ref\8.0.28\ref\net8.0\System.Collections.Immutable.dll]的引用。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+C:\Program Files\dotnet\sdk\8.0.422\Microsoft.Common.CurrentVersion.targets(2412,5): warning MSB3277:         C:\Progra
+m Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.28\ref\net8.0\System.Collections.Immutable.dll [F:\code\项目添加Win10右键菜
+单\LRS\LRS.csproj]
+C:\Program Files\dotnet\sdk\8.0.422\Microsoft.Common.CurrentVersion.targets(2412,5): warning MSB3277:           导致引用“C:
+\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.28\ref\net8.0\System.Collections.Immutable.dll”的项目文件项 Include
+ 特性。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+C:\Program Files\dotnet\sdk\8.0.422\Microsoft.Common.CurrentVersion.targets(2412,5): warning MSB3277:             C:\Pr
+ogram Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.28\ref/net8.0/System.Collections.Immutable.dll [F:\code\项目添加Win1
+0右键菜单\LRS\LRS.csproj]
+C:\Program Files\dotnet\sdk\8.0.422\Microsoft.Common.CurrentVersion.targets(2412,5): warning MSB3277:     依赖于或已统一到“Syst
+em.Collections.Immutable, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a”[] 的引用。 [F:\code\项目添加Win10
+右键菜单\LRS\LRS.csproj]
+C:\Program Files\dotnet\sdk\8.0.422\Microsoft.Common.CurrentVersion.targets(2412,5): warning MSB3277:         C:\Users\
+Administrator\.nuget\packages\system.drawing.common\10.0.9\lib\net8.0\System.Private.Windows.Core.dll [F:\code\项目添加Win1
+0右键菜单\LRS\LRS.csproj]
+C:\Program Files\dotnet\sdk\8.0.422\Microsoft.Common.CurrentVersion.targets(2412,5): warning MSB3277:           导致引用“C:
+\Users\Administrator\.nuget\packages\system.drawing.common\10.0.9\lib\net8.0\System.Private.Windows.Core.dll”的项目文件项 Inc
+lude 特性。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+C:\Program Files\dotnet\sdk\8.0.422\Microsoft.Common.CurrentVersion.targets(2412,5): warning MSB3277:             C:\Us
+ers\Administrator\.nuget\packages\system.drawing.common\10.0.9\lib\net8.0\System.Private.Windows.Core.dll [F:\code\项目添加
+Win10右键菜单\LRS\LRS.csproj]
+C:\Program Files\dotnet\sdk\8.0.422\Microsoft.Common.CurrentVersion.targets(2412,5): warning MSB3277:             C:\Us
+ers\Administrator\.nuget\packages\system.drawing.common\10.0.9\lib\net8.0\System.Drawing.Common.dll [F:\code\项目添加Win10右
+键菜单\LRS\LRS.csproj]
+C:\Program Files\dotnet\sdk\8.0.422\Microsoft.Common.CurrentVersion.targets(2412,5): warning MSB3277:             C:\Us
+ers\Administrator\.nuget\packages\system.drawing.common\10.0.9\lib\net8.0\System.Private.Windows.GdiPlus.dll [F:\code\项
+目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\UserControls\LRSBreadcrumb.xaml.cs(428,50): warning CS8612: “event PropertyChangedEventHandle
+r LRSBreadcrumb.PropertyChanged”的类型中引用类型的为 Null 性与隐式实现的成员“event PropertyChangedEventHandler? INotifyPropertyChanged.Pro
+pertyChanged”不匹配。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\Services\ShellIconHelper.cs(62,35): warning CS8613: “Task<ImageSource?> ShellIconHelper.GetIc
+onAsync(string fullPath, bool isFolder, DispatcherQueue dispatcherQueue, uint size = 32)”的返回类型中引用类型的为 Null 性与隐式实现的成员“Ta
+sk<ImageSource>? IIconProvider.GetIconAsync(string Path, bool isFolder, DispatcherQueue dispatcherQueue, uint size = 32
+)”不匹配。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\UserControls\LRSBreadcrumb.xaml.cs(424,25): warning CS8767: “bool RelayCommand.CanExecute(obj
+ect parameter)”的参数“parameter”类型中引用类型的为 Null 性与隐式实现的成员“bool ICommand.CanExecute(object? parameter)”不匹配(可能是由于为 Null 性特性)。
+ [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\UserControls\LRSBreadcrumb.xaml.cs(425,25): warning CS8767: “void RelayCommand.Execute(object
+ parameter)”的参数“parameter”类型中引用类型的为 Null 性与隐式实现的成员“void ICommand.Execute(object? parameter)”不匹配(可能是由于为 Null 性特性)。 [F:\c
+ode\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\UserControls\LRSBreadcrumb.xaml.cs(423,39): warning CS8612: “event EventHandler RelayCommand.
+CanExecuteChanged”的类型中引用类型的为 Null 性与隐式实现的成员“event EventHandler? ICommand.CanExecuteChanged”不匹配。 [F:\code\项目添加Win10右键菜单\
+LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\UserControls\LRSBreadcrumb.xaml.cs(418,73): warning CS8625: 无法将 null 字面量转换为非 null 的引用类型。 [F:\
+code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\UserControls\TreeDataGrid.xaml.cs(56,51): warning CS0108: “TreeDataGrid.ContextFlyoutProperty
+”隐藏继承的成员“UIElement.ContextFlyoutProperty”。如果是有意隐藏，请使用关键字 new。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\UserControls\TreeDataGrid.xaml.cs(112,28): warning CS0108: “TreeDataGrid.ContextFlyout”隐藏继承的成
+员“UIElement.ContextFlyout”。如果是有意隐藏，请使用关键字 new。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\Models\LRSBreadcrumbModel.cs(13,17): warning CS8618: 在退出构造函数时，不可为 null 的 属性 "DisplayName" 必须包
+含非 null 值。请考虑添加 "required" 修饰符或将该 属性 声明为可为 null。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\Models\LRSBreadcrumbModel.cs(14,17): warning CS8618: 在退出构造函数时，不可为 null 的 属性 "FullPath" 必须包含非
+null 值。请考虑添加 "required" 修饰符或将该 属性 声明为可为 null。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\Models\LRSBreadcrumbModel.cs(16,19): warning CS8618: 在退出构造函数时，不可为 null 的 属性 "NavigateCommand"
+ 必须包含非 null 值。请考虑添加 "required" 修饰符或将该 属性 声明为可为 null。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\Models\LRSBreadcrumbModel.cs(17,19): warning CS8618: 在退出构造函数时，不可为 null 的 属性 "NavigateSubComma
+nd" 必须包含非 null 值。请考虑添加 "required" 修饰符或将该 属性 声明为可为 null。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\Views\SettingsView.xaml.cs(20,13): warning CS8602: 解引用可能出现空引用。 [F:\code\项目添加Win10右键菜单\LRS\LRS
+.csproj]
+F:\code\项目添加Win10右键菜单\LRS\Services\MainIconProvider.cs(16,10): warning CS8618: 在退出构造函数时，不可为 null 的 字段 "_iconProvider" 必
+须包含非 null 值。请考虑添加 "required" 修饰符或将该 字段 声明为可为 null。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\Views\FileTreeView.xaml.cs(24,31): warning CS8600: 将 null 文本或可能的 null 值转换为不可为 null 类型。 [F:\co
+de\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\Views\MainWindowView.xaml.cs(17,35): warning CS8622: “void MainWindowView.OnVMPropertyChanged
+(object sender, PropertyChangedEventArgs e)”的参数“sender”类型中引用类型的为 Null 性与目标委托“PropertyChangedEventHandler”不匹配(可能是由于为 Nul
+l 性特性)。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\ViewModels\PlaceHolderNodeViewModel.cs(7,65): warning CS8625: 无法将 null 字面量转换为非 null 的引用类型。 [F
+:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\ViewModels\PlaceHolderNodeViewModel.cs(7,71): warning CS8625: 无法将 null 字面量转换为非 null 的引用类型。 [F
+:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\UserControls\LRSBreadcrumb.xaml.cs(448,23): warning CS8618: 在退出构造函数时，不可为 null 的 属性 "DisplayNa
+me" 必须包含非 null 值。请考虑添加 "required" 修饰符或将该 属性 声明为可为 null。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\UserControls\LRSBreadcrumb.xaml.cs(449,23): warning CS8618: 在退出构造函数时，不可为 null 的 属性 "FullPath"
+ 必须包含非 null 值。请考虑添加 "required" 修饰符或将该 属性 声明为可为 null。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\UserControls\LRSBreadcrumb.xaml.cs(451,25): warning CS8618: 在退出构造函数时，不可为 null 的 属性 "NavigateC
+ommand" 必须包含非 null 值。请考虑添加 "required" 修饰符或将该 属性 声明为可为 null。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\UserControls\LRSBreadcrumb.xaml.cs(452,25): warning CS8618: 在退出构造函数时，不可为 null 的 属性 "NavigateS
+ubCommand" 必须包含非 null 值。请考虑添加 "required" 修饰符或将该 属性 声明为可为 null。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\UserControls\LRSBreadcrumb.xaml.cs(109,16): warning CS8618: 在退出构造函数时，不可为 null 的 字段 "_composit
+or" 必须包含非 null 值。请考虑添加 "required" 修饰符或将该 字段 声明为可为 null。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\UserControls\LRSBreadcrumb.xaml.cs(109,16): warning CS8618: 在退出构造函数时，不可为 null 的 事件 "PropertyC
+hanged" 必须包含非 null 值。请考虑添加 "required" 修饰符或将该 事件 声明为可为 null。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\ViewModels\Configs.cs(29,16): warning CS8618: 在退出构造函数时，不可为 null 的 字段 "configuration" 必须包含非 nu
+ll 值。请考虑添加 "required" 修饰符或将该 字段 声明为可为 null。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\UserControls\LRSBreadcrumb.xaml.cs(123,39): warning CS8604: “bool LRSBreadcrumb.IsButtonOrDes
+cendant(DependencyObject element)”中的形参“element”可能传入 null 引用实参。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\Views\FileTreeView.xaml.cs(62,31): warning CS8622: “void FileTreeView.OnTreeFlyoutOpening(obj
+ect sender, object e)”的参数“sender”类型中引用类型的为 Null 性与目标委托“EventHandler<object>”不匹配(可能是由于为 Null 性特性)。 [F:\code\项目添加Win10右键菜
+单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\ViewModels\MainWindowViewModel.cs(37,53): warning CS8622: “void MainWindowViewModel.NavigateT
+oPath(string path)”的参数“path”类型中引用类型的为 Null 性与目标委托“Action<string?>”不匹配(可能是由于为 Null 性特性)。 [F:\code\项目添加Win10右键菜单\LRS\LRS.
+csproj]
+F:\code\项目添加Win10右键菜单\LRS\ViewModels\MainWindowViewModel.cs(38,58): warning CS8622: “void MainWindowViewModel.NavigateT
+oPath(string path)”的参数“path”类型中引用类型的为 Null 性与目标委托“Action<string?>”不匹配(可能是由于为 Null 性特性)。 [F:\code\项目添加Win10右键菜单\LRS\LRS.
+csproj]
+F:\code\项目添加Win10右键菜单\LRS\Views\MiddleFilesView.xaml.cs(82,31): warning CS8622: “void MiddleFilesView.OnBaseFlyoutOpeni
+ng(object sender, object e)”的参数“sender”类型中引用类型的为 Null 性与目标委托“EventHandler<object>”不匹配(可能是由于为 Null 性特性)。 [F:\code\项目添加Wi
+n10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\ViewModels\FileSystemNodeViewModel.cs(80,41): warning CS8604: “MainIconProvider.MainIconProvi
+der(Configs configs)”中的形参“configs”可能传入 null 引用实参。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\ViewModels\FileSystemNodeViewModel.cs(64,10): warning CS8618: 在退出构造函数时，不可为 null 的 字段 "_config
+s" 必须包含非 null 值。请考虑添加 "required" 修饰符或将该 字段 声明为可为 null。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\App.xaml.cs(39,37): warning CS8618: 在退出构造函数时，不可为 null 的 属性 "SharedViewModel" 必须包含非 null 值。请考虑
+添加 "required" 修饰符或将该 属性 声明为可为 null。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\App.xaml.cs(40,34): warning CS8618: 在退出构造函数时，不可为 null 的 属性 "Services" 必须包含非 null 值。请考虑添加 "req
+uired" 修饰符或将该 属性 声明为可为 null。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\Services\WindowsIconProvider.cs(53,11): warning CS8603: 可能返回 null 引用。 [F:\code\项目添加Win10右键菜单\
+LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\Services\WindowsIconProvider.cs(48,22): warning CS0168: 声明了变量“ex”，但从未使用过 [F:\code\项目添加Win10右键
+菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\Services\WindowsIconProvider.cs(73,22): warning CS8625: 无法将 null 字面量转换为非 null 的引用类型。 [F:\code
+\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\Services\FileOperator.cs(109,23): warning CS8600: 将 null 文本或可能的 null 值转换为不可为 null 类型。 [F:\cod
+e\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\Services\FileOperator.cs(110,34): warning CS8604: “string Path.Combine(string path1, string p
+ath2)”中的形参“path1”可能传入 null 引用实参。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\UserControls\LRSBreadcrumb.xaml.cs(217,36): warning CS8604: “void LRSBreadcrumb.UpdateSegment
+s(string path)”中的形参“path”可能传入 null 引用实参。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\Services\WindowsIconProvider.cs(98,18): warning CS8602: 解引用可能出现空引用。 [F:\code\项目添加Win10右键菜单\LR
+S\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\Services\WindowsIconProvider.cs(100,18): warning CS8602: 解引用可能出现空引用。 [F:\code\项目添加Win10右键菜单\L
+RS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\Services\FileOperator.cs(118,21): warning CS1998: 此异步方法缺少 "await" 运算符，将以同步方式运行。请考虑使用 "await"
+运算符等待非阻止的 API 调用，或者使用 "await Task.Run(...)" 在后台线程上执行占用大量 CPU 的工作。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\Services\FileOperator.cs(176,13): warning CS8619: 类型“(IEnumerable<string>?, bool)”的值中引用类型的为 N
+ull 性与目标类型“(IEnumerable<string> FilePaths, bool IsCut)”不匹配。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\Services\FileOperator.cs(180,11): warning CS8619: 类型“(IEnumerable<string>?, bool)”的值中引用类型的为 N
+ull 性与目标类型“(IEnumerable<string> FilePaths, bool IsCut)”不匹配。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\UserControls\LRSBreadcrumb.xaml.cs(418,20): warning CS8618: 在退出构造函数时，不可为 null 的 事件 "CanExecut
+eChanged" 必须包含非 null 值。请考虑添加 "required" 修饰符或将该 事件 声明为可为 null。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\ViewModels\MainWindowViewModel.cs(434,62): warning CS8604: “FileSystemNodeViewModel.FileSyste
+mNodeViewModel(string fullPath, bool isDirectory, bool isPlaceholder, Configs configs, DispatcherQueue uiDispatcherQueu
+e, bool lazyLoad)”中的形参“configs”可能传入 null 引用实参。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\ViewModels\FileSystemNodeViewModel.cs(316,28): warning CS1998: 此异步方法缺少 "await" 运算符，将以同步方式运行。请
+考虑使用 "await" 运算符等待非阻止的 API 调用，或者使用 "await Task.Run(...)" 在后台线程上执行占用大量 CPU 的工作。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\UserControls\LRSBreadcrumb.xaml.cs(423,39): warning CS0067: 从不使用事件“LRSBreadcrumb.RelayCommand
+.CanExecuteChanged” [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+C:\Users\Administrator\.nuget\packages\microsoft.windowsappsdk.winui\2.2.1\buildTransitive\Microsoft.UI.Xaml.Markup.Com
+piler.interop.targets(847,9): XamlCompiler warning WMC1509: No LocalAssembly parameter given during MarkupCompilePass2
+for the currently building project.  This will likely cause type resolution errors for any types from the current proje
+ct. [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\Views\FileTreeView.xaml.cs(141,52): error CS1503: 参数 2: 无法从“Windows.Foundation.Point”转换为“Micr
+osoft.UI.Xaml.Controls.Primitives.FlyoutShowOptions” [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\UserControls\LRSBreadcrumb.xaml(12,10): XamlCompiler error WMC0001: Unknown type 'LastToVisib
+ilityConverter' in XML namespace 'using:LRS.UserControls' [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+F:\code\项目添加Win10右键菜单\LRS\UserControls\LRSBreadcrumb.xaml(113,26): XamlCompiler error WMC0909: Cannot resolve DataType
+local:BreadcrumbSegment [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+C:\Users\Administrator\.nuget\packages\microsoft.windowsappsdk.winui\2.2.1\buildTransitive\Microsoft.UI.Xaml.Markup.Com
+piler.interop.targets(847,9): Xaml Internal Error error WMC9999: 未将对象引用设置到对象的实例。 [F:\code\项目添加Win10右键菜单\LRS\LRS.csproj]
+    54 个警告
+    4 个错误
+
+已用时间 00:00:38.11
+PS F:\code\项目添加Win10右键菜单>
