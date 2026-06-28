@@ -445,10 +445,10 @@ namespace LRS.UserControls
 
     public class BreadcrumbSegment
     {
-        public string DisplayName { get; set; }
-        public string FullPath { get; set; }
+        public string DisplayName { get; set; } = string.Empty;
+        public string FullPath { get; set; } = string.Empty;
         public bool IsLast { get; set; }
-        public ICommand NavigateCommand { get; set; }
-        public ICommand NavigateSubCommand { get; set; }
+        public ICommand NavigateCommand { get; set; } = null!;
+        public ICommand NavigateSubCommand { get; set; } = null!;
     }
 }
