@@ -248,8 +248,7 @@ namespace LRS.ViewModels
 
 		private async Task<NewFilePreset?> ShowNewFilePresetDialogAsync()
 		{
-			var xamlRoot = (App.MainWindow as FrameworkElement)?.XamlRoot
-				?? (App.MainWindow?.Content as FrameworkElement)?.XamlRoot;
+			var xamlRoot = (App.MainWindow?.Content as FrameworkElement)?.XamlRoot;
 			if (xamlRoot == null) return null;
 
 			var stack = new StackPanel { Spacing = 8, MinWidth = 320 };

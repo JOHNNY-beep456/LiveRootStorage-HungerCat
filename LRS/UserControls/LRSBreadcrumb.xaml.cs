@@ -1,10 +1,12 @@
 ﻿using Microsoft.UI.Composition;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Hosting;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -428,5 +430,27 @@ namespace LRS.UserControls
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string name) =>
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+    }
+
+    public class BreadcrumbSegment
+    {
+        public string DisplayName { get; set; } = string.Empty;
+        public string FullPath { get; set; } = string.Empty;
+        public bool IsLast { get; set; }
+        public ICommand NavigateCommand { get; set; } = null!;
+        public ICommand NavigateSubCommand { get; set; } = null!;
+    }
+
+    public class LastToVisibilityConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            return (value is bool isLast && isLast) ? Visibility.Collapsed : Visibility.Visible;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
