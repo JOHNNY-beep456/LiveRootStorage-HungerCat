@@ -43,9 +43,10 @@ namespace LRS.Views
 			NewFileFlyout.Items.Add(inputItem);
 		}
 
-		private void OnNewFolderClick(object sender, RoutedEventArgs e)
+		private async void OnNewFolderClick(object sender, RoutedEventArgs e)
 		{
-			App.SharedViewModel.NewFolderCommand.Execute(null);
+			try { await App.SharedViewModel.NewFolder(); }
+			catch (Exception ex) { Debug.WriteLine($"[TopView] NewFolder failed: {ex.Message}"); }
 		}
 
 		private void OnNewFileButtonClick(object sender, RoutedEventArgs e)
