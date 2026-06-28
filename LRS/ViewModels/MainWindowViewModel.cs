@@ -312,8 +312,19 @@ namespace LRS.ViewModels
 			{
 				Text = req.DefaultName,
 				PlaceholderText = req.IsFolder ? "文件夹名" : "文件名（不含扩展名）",
-				SelectAllOnFocus = true,
 				MinWidth = 280,
+			};
+			nameBox.GotFocus += (s, _) =>
+			{
+				if (s is TextBox tb) tb.SelectAll();
+			};
+			nameBox.Loaded += (s, _) =>
+			{
+				if (s is TextBox tb)
+				{
+					tb.Focus(FocusState.Programmatic);
+					tb.SelectAll();
+				}
 			};
 			var extLabel = req.IsFolder ? null : new TextBlock
 			{
