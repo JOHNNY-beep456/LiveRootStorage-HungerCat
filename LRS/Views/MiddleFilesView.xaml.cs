@@ -155,7 +155,7 @@ namespace LRS.Views
             }
         }
 
-        private void OnBaseFlyoutOpening(object sender, object e)
+        private void OnBaseFlyoutOpening(object? sender, object e)
         {
             var vm = this.DataContext as MainWindowViewModel;
             if (vm == null) return;

@@ -4,6 +4,7 @@ using LRS.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Controls.Primitives;
 using Microsoft.UI.Xaml.Input;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,7 @@ namespace LRS.Views
 
         public FileTreeView()
         {
-            Configs configs = App.SharedViewModel.AppConfigs;
+            Configs? configs = App.SharedViewModel.AppConfigs;
             try
             {
                 InitializeComponent();
@@ -64,7 +65,7 @@ namespace LRS.Views
             return flyout;
         }
 
-        private void OnTreeFlyoutOpening(object sender, object e)
+        private void OnTreeFlyoutOpening(object? sender, object e)
         {
             if (_rightTappedItem == null) return;
 
