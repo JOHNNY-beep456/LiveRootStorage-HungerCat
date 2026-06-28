@@ -15,10 +15,13 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Runtime.InteropServices;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 
 namespace LRS.ViewModels
 {
@@ -202,6 +205,112 @@ namespace LRS.ViewModels
 			var newPath = GenerateUniquePath(Path.Combine(destDir, "新建文本文档.txt"));
 			File.Create(newPath).Dispose();
 			await RefreshCurrentFolder();
+		}
+
+		public record NewFilePreset(string Extension, string DisplayName)
+		{
+			public string DefaultFileName => $"新建{DisplayName}{Extension}";
+		}
+
+		public static readonly IReadOnlyList<NewFilePreset> NewFilePresets = new List<NewFilePreset>
+		{
+			new(".txt",  "文本文档"),
+			new(".md",   "Markdown 文档"),
+			new(".docx", "Word 文档"),
+			new(".xlsx", "Excel 工作簿"),
+			new(".pptx", "PowerPoint 演示文稿"),
+			new(".json", "JSON 文件"),
+			new(".csv",  "CSV 文件"),
+		};
+
+		[RelayCommand]
+		private async Task NewFile()
+		{
+			if (AppConfigs == null) return;
+			var destDir = SelectedFolder?.FullPath ?? CurrentBreadcrumbPath;
+
+			if (AppConfigs.NewFileMode == NewFileMode.InputExtension)
+			{
+				var ext = await ShowNewFileInputDialogAsync();
+				if (string.IsNullOrEmpty(ext)) return;
+				var newPath = GenerateUniquePath(Path.Combine(destDir, $"新建文件{ext}"));
+				File.Create(newPath).Dispose();
+			}
+			else
+			{
+				var preset = await ShowNewFilePresetDialogAsync();
+				if (preset == null) return;
+				var newPath = GenerateUniquePath(Path.Combine(destDir, preset.DefaultFileName));
+				File.Create(newPath).Dispose();
+			}
+			await RefreshCurrentFolder();
+		}
+
+		private async Task<NewFilePreset?> ShowNewFilePresetDialogAsync()
+		{
+			var xamlRoot = (App.MainWindow as FrameworkElement)?.XamlRoot
+				?? (App.MainWindow?.Content as FrameworkElement)?.XamlRoot;
+			if (xamlRoot == null) return null;
+
+			var stack = new StackPanel { Spacing = 8, MinWidth = 320 };
+			foreach (var preset in NewFilePresets)
+			{
+				var item = preset;
+				var btn = new Button { HorizontalAlignment = HorizontalAlignment.Stretch, HorizontalContentAlignment = HorizontalAlignment.Left };
+				var sp = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 12 };
+				sp.Children.Add(new FontIcon { Glyph = "\uE7C3", FontSize = 18, VerticalAlignment = VerticalAlignment.Center });
+				sp.Children.Add(new TextBlock { Text = $"{item.DisplayName}  ({item.Extension})", VerticalAlignment = VerticalAlignment.Center });
+				btn.Content = sp;
+				btn.Tag = item;
+				btn.Click += (s, e) =>
+				{
+					if (s is Button b && b.Tag is NewFilePreset p)
+					{
+						_presetResult = p;
+						if (b.DataContext is ContentDialog dlg) dlg.Hide();
+					}
+				};
+				stack.Children.Add(btn);
+			}
+
+			var dlg = new ContentDialog
+			{
+				Title = "新建文件",
+				Content = stack,
+				CloseButtonText = "取消",
+				DefaultButton = ContentDialogButton.Close,
+				XamlRoot = xamlRoot,
+			};
+			stack.DataContext = dlg;
+			_presetResult = null;
+			await dlg.ShowAsync();
+			return _presetResult;
+		}
+		private NewFilePreset? _presetResult;
+
+		private async Task<string?> ShowNewFileInputDialogAsync()
+		{
+			var xamlRoot = (App.MainWindow as FrameworkElement)?.XamlRoot
+				?? (App.MainWindow?.Content as FrameworkElement)?.XamlRoot;
+			if (xamlRoot == null) return null;
+
+			var tb = new TextBox { Text = ".txt", PlaceholderText = ".扩展名（包含点号）" };
+			var dlg = new ContentDialog
+			{
+				Title = "新建文件",
+				Content = tb,
+				PrimaryButtonText = "创建",
+				CloseButtonText = "取消",
+				DefaultButton = ContentDialogButton.Primary,
+				XamlRoot = xamlRoot,
+			};
+			var result = await dlg.ShowAsync();
+			if (result != ContentDialogResult.Primary) return null;
+			var input = tb.Text?.Trim() ?? "";
+			if (string.IsNullOrEmpty(input)) return null;
+			if (!input.StartsWith(".")) input = "." + input;
+			if (!Regex.IsMatch(input, @"^\.[A-Za-z0-9_\-]{1,16}$")) return null;
+			return input;
 		}
 
 		[RelayCommand]

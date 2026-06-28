@@ -6,6 +6,12 @@ using System.IO;
 
 namespace LRS.ViewModels
 {
+    public enum NewFileMode
+    {
+        Preset,
+        InputExtension
+    }
+
     public partial class Configs : ObservableObject
     {
         private static readonly string DefaultConfigPath =
@@ -25,6 +31,7 @@ namespace LRS.ViewModels
         [ObservableProperty] private int _iconParallelLoadingCount = 30;
         [ObservableProperty] private string _homePageFullPath = "C:\\";
         [ObservableProperty] private string _defaultOrderMode = "ModifiedDesc";
+        [ObservableProperty] private NewFileMode _newFileMode = NewFileMode.Preset;
 
         public Configs()
         {
@@ -58,6 +65,8 @@ namespace LRS.ViewModels
             HomePageFullPath = configuration.GetValue("General:HomePageFullPath", "C:\\")!;
             IconParallelLoadingCount = configuration.GetValue("Performance:IconParallelLoadingCount", 30);
             DefaultOrderMode = configuration.GetValue("General:DefaultOrderMode", "ModifiedDesc")!;
+            var modeStr = configuration.GetValue("General:NewFileMode", "Preset")!;
+            NewFileMode = Enum.TryParse<NewFileMode>(modeStr, true, out var m) ? m : NewFileMode.Preset;
             if (IconParallelLoadingCount != 0) IfLimitIconLoadingConcurrency = true;
         }
 
@@ -74,7 +83,8 @@ namespace LRS.ViewModels
                 "  },\n",
                 "  \"General\": {\n",
                $"    \"HomePageFullPath\": \"{escapedPath}\",\n",
-               $"    \"DefaultOrderMode\": \"{DefaultOrderMode}\"\n",
+               $"    \"DefaultOrderMode\": \"{DefaultOrderMode}\",\n",
+               $"    \"NewFileMode\": \"{NewFileMode}\"\n",
                 "  },\n",
                 "  \"Performance\": {\n",
                $"    \"IconParallelLoadingCount\": {IconParallelLoadingCount}\n",
