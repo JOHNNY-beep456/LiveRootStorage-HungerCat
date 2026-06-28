@@ -59,6 +59,7 @@ namespace LRS
                 services.AddSingleton(new Configs());
 				services.AddSingleton<IIconProvider, WindowsIconProvider>();
 				services.AddSingleton<IFileOperator, FileOperator>();
+				services.AddSingleton<ShellContextMenuService>();
 			}).Build();
             Services = _host.Services;
 			this.UnhandledException += (s, e) =>
@@ -81,7 +82,8 @@ namespace LRS
 			var configs = Services.GetRequiredService<Configs>();
 			var fileOperator = Services.GetRequiredService<IFileOperator>();
 			var iconProvider = Services.GetRequiredService<IIconProvider>();
-			SharedViewModel = new MainWindowViewModel(iconProvider, dispatcher, configs, fileOperator);
+			var shellContextMenu = Services.GetRequiredService<ShellContextMenuService>();
+			SharedViewModel = new MainWindowViewModel(iconProvider, dispatcher, configs, fileOperator, shellContextMenu);
 
 			_window = new Views.MainWindowView();
 			MainWindow = _window;

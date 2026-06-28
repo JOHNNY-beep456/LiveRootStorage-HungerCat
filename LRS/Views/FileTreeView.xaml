@@ -20,7 +20,8 @@
 
         <TreeView Grid.Row="0"
                   ItemsSource="{Binding RootDirectories}"
-                  SelectionChanged="TreeView_SelectionChanged">
+                  SelectionChanged="TreeView_SelectionChanged"
+                  RightTapped="TreeView_RightTapped">
             <TreeView.ItemTemplate>
                 <DataTemplate x:DataType="vm:FileSystemNodeViewModel">
                     <TreeViewItem ItemsSource="{Binding Children}"

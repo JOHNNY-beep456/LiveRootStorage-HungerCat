@@ -25,10 +25,12 @@ namespace LRS.ViewModels
 	public partial class MainWindowViewModel : ViewModelBase
 	{
 		private IFileOperator _fileOperator;
-		public MainWindowViewModel(IIconProvider iconProvider, Microsoft.UI.Dispatching.DispatcherQueue uiDispatcherQueue, Configs configs, IFileOperator fileOperator)
+		private ShellContextMenuService _shellContextMenuService;
+		public MainWindowViewModel(IIconProvider iconProvider, Microsoft.UI.Dispatching.DispatcherQueue uiDispatcherQueue, Configs configs, IFileOperator fileOperator, ShellContextMenuService shellContextMenuService)
 		{
 			AppConfigs = configs;
 			_fileOperator = fileOperator;
+			_shellContextMenuService = shellContextMenuService;
 			CurrentBreadcrumbPath = configs.HomePageFullPath;
 			_uiDispatcherQueue = uiDispatcherQueue;
 			_iconProvider = iconProvider;
@@ -201,6 +203,31 @@ namespace LRS.ViewModels
 			File.Create(newPath).Dispose();
 			await RefreshCurrentFolder();
 		}
+
+		[RelayCommand]
+		private async Task Refresh()
+		{
+			if (SelectedFolder != null)
+			{
+				SelectedFolder = null;
+				await Task.Delay(10);
+				var target = FindNodeByPath(CurrentBreadcrumbPath);
+				if (target != null)
+				{
+					if (target.IsLoaded)
+					{
+						target.Children.Clear();
+						target.Children.Add(new PlaceholderNodeViewModel());
+						var field = typeof(FileSystemNodeViewModel).GetField("_isLoaded", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+						field?.SetValue(target, false);
+					}
+					SelectedFolder = target;
+				}
+			}
+			_shellContextMenuService.ClearCache();
+		}
+
+		public ShellContextMenuService ShellContextMenu => _shellContextMenuService;
 
 		private async Task RefreshCurrentFolder()
 		{
