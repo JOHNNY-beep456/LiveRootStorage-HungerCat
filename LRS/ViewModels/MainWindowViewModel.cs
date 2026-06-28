@@ -207,22 +207,17 @@ namespace LRS.ViewModels
 		[RelayCommand]
 		private async Task Refresh()
 		{
-			if (SelectedFolder != null)
+			string currentPath = CurrentBreadcrumbPath;
+			var currentNode = SelectedFolder;
+			SelectedFolder = null;
+			await Task.Delay(10);
+			if (!string.IsNullOrEmpty(currentPath) && Directory.Exists(currentPath))
 			{
-				SelectedFolder = null;
-				await Task.Delay(10);
-				var target = FindNodeByPath(CurrentBreadcrumbPath);
-				if (target != null)
-				{
-					if (target.IsLoaded)
-					{
-						target.Children.Clear();
-						target.Children.Add(new PlaceholderNodeViewModel());
-						var field = typeof(FileSystemNodeViewModel).GetField("_isLoaded", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-						field?.SetValue(target, false);
-					}
-					SelectedFolder = target;
-				}
+				NavigateToNewPath(currentPath);
+			}
+			else if (currentNode != null)
+			{
+				SelectedFolder = currentNode;
 			}
 			_shellContextMenuService.ClearCache();
 		}
