@@ -138,7 +138,12 @@ namespace LRS.Views
                 item.IsSelected = true;
             }
 
-            _treeItemContextFlyout.ShowAt(element, e.GetPosition(element));
+            var showOptions = new FlyoutShowOptions
+            {
+                Position = e.GetPosition(element),
+                Placement = FlyoutPlacementMode.Full
+            };
+            _treeItemContextFlyout.ShowAt(element, showOptions);
         }
 
         private static AppBarButton PlainBtn(string label, string glyph, RoutedEventHandler? click)
