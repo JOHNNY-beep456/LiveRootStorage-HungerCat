@@ -16,6 +16,7 @@
     <EnableXamlDiagnostics>false</EnableXamlDiagnostics>
     <Nullable>enable</Nullable>
 	<LangVersion>preview</LangVersion>
+	<WindowsPackageType>None</WindowsPackageType>
 	<NoWarn>$(NoWarn);NU1701;MSB3277;CS0108;CS0168;CS8600;CS8602;CS8603;CS8604;CS8612;CS8613;CS8618;CS8619;CS8622;CS8625;CS8767;CS1998;CS0067;WMC1509;PRI257;PRI263;NETSDK1198;MVVMTK0034</NoWarn>
   </PropertyGroup>
   <ItemGroup>
