@@ -23,23 +23,6 @@
 				<TextBox Text="{Binding AppConfigs.HomePageFullPath, Mode=TwoWay}" />
 			</comCtrls:SettingsCard>
 
-			<comCtrls:SettingsCard Header="新建文件行为">
-				<comCtrls:SettingsCard.HeaderIcon>
-					<FontIcon Glyph="&#xE7C3;" />
-				</comCtrls:SettingsCard.HeaderIcon>
-				<StackPanel Orientation="Vertical" Spacing="4">
-					<ComboBox x:Name="NewFileModeComboBox"
-							  MinWidth="160"
-							  ItemsSource="{Binding NewFileModePairs}"
-							  DisplayMemberPath="Value"
-							  SelectedValuePath="Key"
-							  SelectedValue="{Binding AppConfigs.NewFileMode, Mode=TwoWay}" />
-					<TextBlock Text="默认弹出预设菜单（.txt / .md / .docx 等）。切换为「输入扩展名」后，新建文件按钮将弹出文本框让你输入扩展名。"
-							   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-							   TextWrapping="Wrap" MaxWidth="380" />
-				</StackPanel>
-			</comCtrls:SettingsCard>
-
 			<comCtrls:SettingsExpander Header="普通文件夹默认排序方式">
 				<comCtrls:SettingsExpander.HeaderIcon>
 					<FontIcon Glyph="&#xE8CB;" />

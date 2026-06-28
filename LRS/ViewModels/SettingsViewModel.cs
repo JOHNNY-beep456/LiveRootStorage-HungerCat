@@ -21,12 +21,6 @@ namespace LRS.ViewModels
 			{ SortMode.CreatedDesc, "创建时间降序" },
 			{ SortMode.CreatedAsc, "创建时间升序" },
 		}.ToList();
-		public static List<KeyValuePair<NewFileMode, string>> NewFileModePairs { get; } =
-		new Dictionary<NewFileMode, string>
-		{
-			{ NewFileMode.Preset, "预设扩展名" },
-			{ NewFileMode.InputExtension, "输入扩展名" },
-		}.ToList();
 		public enum SortModes
 		{
 			NameAsc,

@@ -189,12 +189,24 @@ namespace LRS.ViewModels
 			await Task.CompletedTask;
 		}
 
-		[RelayCommand]
-		private async Task NewFolder()
+		public async Task NewFolder()
 		{
+			if (string.IsNullOrEmpty(SelectedFolder?.FullPath) && string.IsNullOrEmpty(CurrentBreadcrumbPath))
+			{
+				Debug.WriteLine("[NewFolder] No destination directory.");
+				return;
+			}
 			var destDir = SelectedFolder?.FullPath ?? CurrentBreadcrumbPath;
 			var newPath = GenerateUniquePath(Path.Combine(destDir, "新建文件夹"));
-			Directory.CreateDirectory(newPath);
+			try
+			{
+				Directory.CreateDirectory(newPath);
+			}
+			catch (Exception ex)
+			{
+				Debug.WriteLine($"[NewFolder] CreateDirectory failed: {ex.Message}");
+				return;
+			}
 			await RefreshCurrentFolder();
 		}
 
@@ -223,69 +235,43 @@ namespace LRS.ViewModels
 			new(".csv",  "CSV 文件"),
 		};
 
-		[RelayCommand]
-		private async Task NewFile()
+		public async Task NewFileWithPresetAsync(NewFilePreset preset)
 		{
-			if (AppConfigs == null) return;
+			if (preset == null) return;
 			var destDir = SelectedFolder?.FullPath ?? CurrentBreadcrumbPath;
-
-			if (AppConfigs.NewFileMode == NewFileMode.InputExtension)
+			if (string.IsNullOrEmpty(destDir)) return;
+			var newPath = GenerateUniquePath(Path.Combine(destDir, preset.DefaultFileName));
+			try
 			{
-				var ext = await ShowNewFileInputDialogAsync();
-				if (string.IsNullOrEmpty(ext)) return;
-				var newPath = GenerateUniquePath(Path.Combine(destDir, $"新建文件{ext}"));
 				File.Create(newPath).Dispose();
 			}
-			else
+			catch (Exception ex)
 			{
-				var preset = await ShowNewFilePresetDialogAsync();
-				if (preset == null) return;
-				var newPath = GenerateUniquePath(Path.Combine(destDir, preset.DefaultFileName));
-				File.Create(newPath).Dispose();
+				Debug.WriteLine($"[NewFile] Create failed: {ex.Message}");
+				return;
 			}
 			await RefreshCurrentFolder();
 		}
 
-		private async Task<NewFilePreset?> ShowNewFilePresetDialogAsync()
+		public async Task NewFileWithInputExtensionAsync()
 		{
-			var xamlRoot = (App.MainWindow?.Content as FrameworkElement)?.XamlRoot;
-			if (xamlRoot == null) return null;
+			var destDir = SelectedFolder?.FullPath ?? CurrentBreadcrumbPath;
+			if (string.IsNullOrEmpty(destDir)) return;
 
-			var stack = new StackPanel { Spacing = 8, MinWidth = 320 };
-			foreach (var preset in NewFilePresets)
+			var ext = await ShowNewFileInputDialogAsync();
+			if (string.IsNullOrEmpty(ext)) return;
+			var newPath = GenerateUniquePath(Path.Combine(destDir, $"新建文件{ext}"));
+			try
 			{
-				var item = preset;
-				var btn = new Button { HorizontalAlignment = HorizontalAlignment.Stretch, HorizontalContentAlignment = HorizontalAlignment.Left };
-				var sp = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 12 };
-				sp.Children.Add(new FontIcon { Glyph = "\uE7C3", FontSize = 18, VerticalAlignment = VerticalAlignment.Center });
-				sp.Children.Add(new TextBlock { Text = $"{item.DisplayName}  ({item.Extension})", VerticalAlignment = VerticalAlignment.Center });
-				btn.Content = sp;
-				btn.Tag = item;
-				btn.Click += (s, e) =>
-				{
-					if (s is Button b && b.Tag is NewFilePreset p)
-					{
-						_presetResult = p;
-						if (b.DataContext is ContentDialog dlg) dlg.Hide();
-					}
-				};
-				stack.Children.Add(btn);
+				File.Create(newPath).Dispose();
 			}
-
-			var dlg = new ContentDialog
+			catch (Exception ex)
 			{
-				Title = "新建文件",
-				Content = stack,
-				CloseButtonText = "取消",
-				DefaultButton = ContentDialogButton.Close,
-				XamlRoot = xamlRoot,
-			};
-			stack.DataContext = dlg;
-			_presetResult = null;
-			await dlg.ShowAsync();
-			return _presetResult;
+				Debug.WriteLine($"[NewFile] Create failed: {ex.Message}");
+				return;
+			}
+			await RefreshCurrentFolder();
 		}
-		private NewFilePreset? _presetResult;
 
 		private async Task<string?> ShowNewFileInputDialogAsync()
 		{

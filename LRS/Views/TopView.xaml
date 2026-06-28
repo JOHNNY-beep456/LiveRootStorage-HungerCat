@@ -31,20 +31,27 @@
 								CanGoForward="{Binding CanGoForward}">
 		</LRSCtrls:LRSBreadcrumb>
 		<StackPanel Grid.Column="1" Orientation="Horizontal" Margin="8,0,10,0" Spacing="4" VerticalAlignment="Center">
-			<AppBarButton x:Name="NewFolderButton" Label="新建文件夹"
-						  Command="{Binding NewFolderCommand}"
-						  ToolTipService.ToolTip="在当前目录创建新文件夹">
-				<AppBarButton.Icon>
-					<FontIcon Glyph="&#xE8B7;"/>
-				</AppBarButton.Icon>
-			</AppBarButton>
-			<AppBarButton x:Name="NewFileButton" Label="新建文件"
-						  Command="{Binding NewFileCommand}"
-						  ToolTipService.ToolTip="在当前目录创建新文件（行为可在设置中切换）">
-				<AppBarButton.Icon>
-					<FontIcon Glyph="&#xE7C3;"/>
-				</AppBarButton.Icon>
-			</AppBarButton>
+			<Button x:Name="NewFolderButton" Click="OnNewFolderClick"
+					ToolTipService.ToolTip="在当前目录创建新文件夹"
+					Style="{StaticResource SubtleButtonStyle}"
+					Height="32" Padding="8,2">
+				<StackPanel Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+					<FontIcon Glyph="&#xE8B7;" FontSize="14"/>
+					<TextBlock Text="新建文件夹" FontSize="13"/>
+				</StackPanel>
+			</Button>
+			<Button x:Name="NewFileButton" Click="OnNewFileButtonClick"
+					ToolTipService.ToolTip="在当前目录创建新文件（行为可在设置中切换）"
+					Style="{StaticResource SubtleButtonStyle}"
+					Height="32" Padding="8,2">
+				<StackPanel Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+					<FontIcon Glyph="&#xE7C3;" FontSize="14"/>
+					<TextBlock Text="新建文件" FontSize="13"/>
+				</StackPanel>
+				<Button.Flyout>
+					<MenuFlyout x:Name="NewFileFlyout" Placement="Bottom"/>
+				</Button.Flyout>
+			</Button>
 		</StackPanel>
 	</Grid>
 </Page>
