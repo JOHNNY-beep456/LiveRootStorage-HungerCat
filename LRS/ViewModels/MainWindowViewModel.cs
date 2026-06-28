@@ -189,6 +189,7 @@ namespace LRS.ViewModels
 			await Task.CompletedTask;
 		}
 
+		[RelayCommand]
 		public async Task NewFolder()
 		{
 			if (string.IsNullOrEmpty(SelectedFolder?.FullPath) && string.IsNullOrEmpty(CurrentBreadcrumbPath))

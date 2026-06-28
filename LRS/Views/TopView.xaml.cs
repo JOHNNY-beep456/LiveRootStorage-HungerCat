@@ -1,25 +1,8 @@
-﻿//using BetterBreadcrumbBar.Control;
-//using LRS.ViewModels;
-//using Microsoft.UI.Dispatching;
-//using Microsoft.UI.Xaml;
-using LRS.ViewModels;
+﻿using LRS.ViewModels;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-//using Microsoft.UI.Xaml.Controls.Primitives;
-//using Microsoft.UI.Xaml.Data;
-//using Microsoft.UI.Xaml.Input;
-//using Microsoft.UI.Xaml.Media;
-//using Microsoft.UI.Xaml.Navigation;
 using System;
 using System.Diagnostics;
-//using System.IO;
-//using System.Linq;
-//using System.Runtime.InteropServices.WindowsRuntime;
-//using Windows.Foundation;
-//using Windows.Foundation.Collections;
-
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
 
 namespace LRS.Views
 {
@@ -62,7 +45,7 @@ namespace LRS.Views
 
 		private void OnNewFolderClick(object sender, RoutedEventArgs e)
 		{
-			App.SharedViewModel.NewFolder();
+			App.SharedViewModel.NewFolderCommand.Execute(null);
 		}
 
 		private void OnNewFileButtonClick(object sender, RoutedEventArgs e)
