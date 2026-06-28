@@ -1,11 +1,11 @@
-# LRS — LiveRootStorage
+# LRS-HungerCat — LiveRootStorage
 
 > 一款采用 Fluent 设计的开源、免费的 Windows 文件资源管理器。
 > An open-source, free Windows file explorer with a Fluent design.
 
-LRS 是一款基于 **WinUI 3 / Windows App SDK** 构建的现代化文件管理器，采用 MVVM 架构，提供贴近原生 Windows 资源管理器的使用体验，并支持通过注册表动态加载系统 Shell 右键菜单项。
+LRS-HungerCat 是一款基于 **WinUI 3 / Windows App SDK** 构建的现代化文件管理器，采用 MVVM 架构，提供贴近原生 Windows 资源管理器的使用体验，并支持通过注册表动态加载系统 Shell 右键菜单项。
 
-LRS is a modern file manager built on **WinUI 3 / Windows App SDK**, following the MVVM pattern. It aims to deliver a familiar Explorer-like experience while integrating the system Shell context menu dynamically from the Windows registry.
+LRS-HungerCat is a modern file manager built on **WinUI 3 / Windows App SDK**, following the MVVM pattern. It aims to deliver a familiar Explorer-like experience while integrating the system Shell context menu dynamically from the Windows registry.
 
 ---
 
@@ -41,13 +41,11 @@ LRS is a modern file manager built on **WinUI 3 / Windows App SDK**, following t
 
 ### 1.1 获取发布包 / Get the release
 
-前往 [Releases](../../releases) 页面，下载对应架构的压缩包：
+前往 [Releases](../../releases) 页面，下载EXE文件：
 
 | 架构 / Arch | 适用设备 / Device             |
 | ----------- | ------------------------------ |
 | `x64`       | 大多数 Intel / AMD 桌面与笔记本 |
-| `x86`       | 32 位系统                       |
-| `ARM64`     | Snapdragon / ARM 设备            |
 
 Download the archive matching your CPU architecture from the [Releases](../../releases) page.
 
@@ -76,7 +74,7 @@ Extract the archive and double-click `LRS.exe` to launch.
 ### 2.2 克隆 / Clone
 
 ```bash
-git clone https://github.com/Xhscfdj/LiveRootStorage.git
+git clone https://github.com/Xhscfdj/LiveRootStorage.git](https://github.com/JOHNNY-beep456/LiveRootStorage-HungerCat.git
 cd LiveRootStorage
 ```
 
