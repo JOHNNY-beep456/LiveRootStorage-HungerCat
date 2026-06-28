@@ -290,8 +290,7 @@ namespace LRS.ViewModels
 
 		private async Task<string?> ShowNewFileInputDialogAsync()
 		{
-			var xamlRoot = (App.MainWindow as FrameworkElement)?.XamlRoot
-				?? (App.MainWindow?.Content as FrameworkElement)?.XamlRoot;
+			var xamlRoot = (App.MainWindow?.Content as FrameworkElement)?.XamlRoot;
 			if (xamlRoot == null) return null;
 
 			var tb = new TextBox { Text = ".txt", PlaceholderText = ".扩展名（包含点号）" };
