@@ -60,6 +60,16 @@ namespace LRS.ViewModels
 
 		public bool IsLoaded => _isLoaded;
 
+		// 强制重读子项（用于新建/重命名后刷新）
+		public async Task ReloadAsync()
+		{
+			if (!IsDirectory) return;
+			_isLoaded = false;
+			_isCounting = false;
+			_cachedChildrenCount = null;
+			await LoadChildrenAsync();
+		}
+
 		// 构造函数（统一入口）
 		public FileSystemNodeViewModel(
 			string fullPath,

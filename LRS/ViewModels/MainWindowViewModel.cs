@@ -208,6 +208,7 @@ namespace LRS.ViewModels
 			catch (Exception ex)
 			{
 				Debug.WriteLine($"[NewFolder] CreateDirectory failed: {ex.Message}");
+				await ShowErrorDialogAsync("无法创建文件夹", ex.Message);
 				return;
 			}
 			await RefreshAndSelectAsync(r.FullPath);
@@ -249,6 +250,7 @@ namespace LRS.ViewModels
 			catch (Exception ex)
 			{
 				Debug.WriteLine($"[NewFile] Create failed: {ex.Message}");
+				await ShowErrorDialogAsync("无法创建文件", ex.Message);
 				return;
 			}
 			await RefreshAndSelectAsync(r.FullPath);
@@ -268,9 +270,25 @@ namespace LRS.ViewModels
 			catch (Exception ex)
 			{
 				Debug.WriteLine($"[NewFile] Create failed: {ex.Message}");
+				await ShowErrorDialogAsync("无法创建文件", ex.Message);
 				return;
 			}
 			await RefreshAndSelectAsync(r.FullPath);
+		}
+
+		private async Task ShowErrorDialogAsync(string title, string message)
+		{
+			var xamlRoot = (App.MainWindow?.Content as FrameworkElement)?.XamlRoot;
+			if (xamlRoot == null) return;
+			var dlg = new ContentDialog
+			{
+				Title = title,
+				Content = message,
+				CloseButtonText = "确定",
+				DefaultButton = ContentDialogButton.Close,
+				XamlRoot = xamlRoot,
+			};
+			await dlg.ShowAsync();
 		}
 
 		public record NewItemRequest(bool IsFolder, string? Extension, string DefaultName);
@@ -412,10 +430,29 @@ namespace LRS.ViewModels
 
 		private async Task RefreshAndSelectAsync(string newPath)
 		{
-			await RefreshCurrentFolder();
+			// 如果 SelectedFolder 为空（如启动后立刻点击），用 CurrentBreadcrumbPath 兜底
+			if (SelectedFolder == null && !string.IsNullOrEmpty(CurrentBreadcrumbPath) && Directory.Exists(CurrentBreadcrumbPath))
+			{
+				NavigateToNewPath(CurrentBreadcrumbPath);
+			}
+
+			if (SelectedFolder != null)
+			{
+				// 强制重新读取子项，覆盖 LoadChildrenAsync 的 _isLoaded 早退
+				await SelectedFolder.ReloadAsync();
+				await UpdateCurrentFolderContentAsync(SelectedFolder);
+			}
+
 			var item = CurrentFolderContent.FirstOrDefault(
 				n => string.Equals(n.FullPath, newPath, StringComparison.OrdinalIgnoreCase));
-			RequestSelectItem?.Invoke(item);
+			if (item != null)
+			{
+				RequestSelectItem?.Invoke(item);
+			}
+			else
+			{
+				Debug.WriteLine($"[RefreshAndSelect] item not found in CurrentFolderContent: {newPath}");
+			}
 		}
 
 		[RelayCommand]
