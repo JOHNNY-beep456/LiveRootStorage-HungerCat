@@ -231,6 +231,77 @@ namespace LRS.Services
         }
 
         /// <summary>
+        /// 把外部 <c>.hlds</c> 文件复制到 <see cref="ExtensionDirectory"/> 并立即重载。
+        /// 用于实现"拖入窗口即安装"流程。失败不会抛出，所有错误都装进 <see cref="InstallResult"/>。
+        /// </summary>
+        /// <param name="sourcePath">拖入的源文件绝对路径。</param>
+        /// <param name="cancellationToken">用于 <see cref="ReloadAsync"/>。</param>
+        public async Task<InstallResult> InstallAsync(
+            string sourcePath,
+            CancellationToken cancellationToken = default)
+        {
+            if (string.IsNullOrWhiteSpace(sourcePath))
+                return new InstallResult(sourcePath, false, "源路径为空");
+            if (!File.Exists(sourcePath))
+                return new InstallResult(sourcePath, false, "源文件不存在");
+
+            // 先做一次清单校验；坏文件拒绝安装（但仍尝试复制以便用户后续手改）
+            var manifest = ExtensionLoader.LoadFromFile(sourcePath);
+            if (manifest == null)
+                return new InstallResult(sourcePath, false, "清单格式不合法（详见 Debug 输出）");
+
+            string destPath;
+            try
+            {
+                Directory.CreateDirectory(_extDirectory);
+                var fileName = Path.GetFileName(sourcePath);
+                destPath = Path.Combine(_extDirectory, fileName);
+                File.Copy(sourcePath, destPath, overwrite: true);
+            }
+            catch (Exception ex)
+            {
+                return new InstallResult(sourcePath, false, $"复制失败：{ex.Message}");
+            }
+
+            try
+            {
+                await ReloadAsync(cancellationToken).ConfigureAwait(false);
+            }
+            catch (Exception ex)
+            {
+                // 已落盘但重载失败：保留文件，下次启动仍会加载
+                Debug.WriteLine($"[ExtensionManager] install reload failed: {ex.Message}");
+                return new InstallResult(sourcePath, true, $"已复制但重载失败：{ex.Message}");
+            }
+
+            return new InstallResult(sourcePath, true, null)
+            {
+                InstalledId = manifest.Id,
+                InstalledName = manifest.Name,
+                DestinationPath = destPath,
+            };
+        }
+
+        /// <summary>单次安装尝试的结果。文件名/ID/Name 可能为空字符串（当源解析失败时）。</summary>
+        public sealed record InstallResult(
+            string SourcePath,
+            bool Success,
+            string? Error)
+        {
+            public string FileName =>
+                string.IsNullOrEmpty(SourcePath) ? string.Empty : Path.GetFileName(SourcePath);
+
+            /// <summary>复制到的目标绝对路径。仅 Success 时有值。</summary>
+            public string? DestinationPath { get; init; }
+
+            /// <summary>解析出的扩展 id。清单非法时为 <c>null</c>。</summary>
+            public string? InstalledId { get; init; }
+
+            /// <summary>解析出的扩展名。清单非法时为 <c>null</c>。</summary>
+            public string? InstalledName { get; init; }
+        }
+
+        /// <summary>
         /// 在已启用扩展中查找 <paramref name="commandId"/> 对应的命令并执行。
         /// 找不到时返回 <c>(int.MinValue, "command not found")</c>。
         /// </summary>
