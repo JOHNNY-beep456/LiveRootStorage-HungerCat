@@ -765,5 +765,44 @@ namespace LRS.ViewModels
 			}
 			return null;
 		}
+
+		// ---- 扩展系统（HLDS）----
+
+		private ExtensionManager? _extensions;
+
+		/// <summary>
+		/// 通过 <see cref="App.Services"/> 懒解析的扩展管理器。
+		/// 在 <c>App.OnLaunched</c> 中已 <c>InitializeAsync</c> 完毕。
+		/// </summary>
+		public ExtensionManager? Extensions
+		{
+			get
+			{
+				if (_extensions == null && App.Services != null)
+				{
+					try { _extensions = App.Services.GetService(typeof(ExtensionManager)) as ExtensionManager; }
+					catch { _extensions = null; }
+				}
+				return _extensions;
+			}
+		}
+
+		/// <summary>当前已加载的扩展清单（来自 <see cref="ExtensionManager"/>）。</summary>
+		public IReadOnlyList<ExtensionManager.LoadedExtension> LoadedExtensions
+			=> Extensions?.LoadedExtensions
+			   ?? Array.Empty<ExtensionManager.LoadedExtension>();
+
+		/// <summary>是否存在任意已加载扩展（用于设置页 / 顶栏的空状态）。</summary>
+		public bool HasAnyExtensions => LoadedExtensions.Count > 0;
+
+		/// <summary>
+		/// 当扩展被热重载 / 启用 / 禁用时调用，通知各 UI 刷新（右键菜单 / 顶栏按钮 / 设置页等）。
+		/// </summary>
+		public void OnExtensionsChanged()
+		{
+			OnPropertyChanged(nameof(Extensions));
+			OnPropertyChanged(nameof(LoadedExtensions));
+			OnPropertyChanged(nameof(HasAnyExtensions));
+		}
 	}
 }

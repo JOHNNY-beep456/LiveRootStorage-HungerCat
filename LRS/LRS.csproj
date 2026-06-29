@@ -185,4 +185,9 @@
     </ItemGroup>
     <Copy SourceFiles="@(_LockScreenSrc)" DestinationFiles="Assets\LockScreenLogo.png" SkipUnchangedFiles="true" />
   </Target>
+
+  <!-- HLDS 扩展：把仓库根 ./ext 下的所有 .hlds 拷贝到输出 ext/，运行时 ExtensionManager 扫描该目录 -->
+  <ItemGroup>
+    <None Include="..\ext\**\*.hlds" CopyToOutputDirectory="PreserveNewest" Link="ext\%(RecursiveDir)%(Filename)%(Extension)" />
+  </ItemGroup>
 </Project>
