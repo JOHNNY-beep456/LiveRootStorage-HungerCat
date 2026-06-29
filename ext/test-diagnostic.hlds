@@ -1,0 +1,19 @@
+{
+  "id": "lrs.test.diagnostic",
+  "name": "诊断测试 / Diagnostic",
+  "version": "1.0.0",
+  "type": "lrs-extension",
+  "author": "LRS Team",
+  "description": "最小诊断扩展：点击按钮后用 cmd.exe 写一个文件到 %TEMP% 并打开 Notepad。用来验证 LRS 扩展系统本身能不能执行命令（不涉及 PowerShell/WPF）。",
+  "entry": "cmd.exe /c echo test",
+  "points": {
+    "topbar_buttons": [
+      {
+        "id": "diagnostic-button",
+        "label": "🧪 诊断",
+        "command": "cmd.exe /c echo LRS extension system invoked at %DATE% %TIME% > \"%TEMP%\\lrs_ext_diag.txt\" & echo CurrentDir: %CD% >> \"%TEMP%\\lrs_ext_diag.txt\" & echo Args: %D >> \"%TEMP%\\lrs_ext_diag.txt\" & notepad \"%TEMP%\\lrs_ext_diag.txt\"",
+        "position": 999
+      }
+    ]
+  }
+}
