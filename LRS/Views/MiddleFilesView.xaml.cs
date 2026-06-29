@@ -27,6 +27,25 @@ namespace LRS.Views
             FileGrid.ContextFlyout = _itemContextFlyout;
             FileGrid.BaseContextFlyout = _baseContextFlyout;
             FileGrid.ItemRightTapped += OnItemRightTapped;
+            if (App.SharedViewModel != null)
+            {
+                App.SharedViewModel.RequestSelectItem += OnRequestSelectItem;
+            }
+            this.Unloaded += OnUnloaded;
+        }
+
+        private void OnUnloaded(object sender, RoutedEventArgs e)
+        {
+            if (App.SharedViewModel != null)
+            {
+                App.SharedViewModel.RequestSelectItem -= OnRequestSelectItem;
+            }
+        }
+
+        private void OnRequestSelectItem(FileSystemNodeViewModel? item)
+        {
+            if (item == null) return;
+            DispatcherQueue.TryEnqueue(() => FileGrid.SelectItem(item));
         }
 
         private void OnTreeDataGridItemInvoked(object sender, FileSystemNodeViewModel item)

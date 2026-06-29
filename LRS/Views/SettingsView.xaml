@@ -22,7 +22,7 @@
 				</comCtrls:SettingsCard.HeaderIcon>
 				<TextBox Text="{Binding AppConfigs.HomePageFullPath, Mode=TwoWay}" />
 			</comCtrls:SettingsCard>
-			
+
 			<comCtrls:SettingsExpander Header="普通文件夹默认排序方式">
 				<comCtrls:SettingsExpander.HeaderIcon>
 					<FontIcon Glyph="&#xE8CB;" />

@@ -14,9 +14,14 @@
     mc:Ignorable="d">
 
 	<Grid>
-		<LRSCtrls:LRSBreadcrumb x:Name="BreadcrumbCtrl" CurrentPath="{Binding SelectedFolder.FullPath, Mode=OneWay}"
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*"/>
+			<ColumnDefinition Width="Auto"/>
+		</Grid.ColumnDefinitions>
+		<LRSCtrls:LRSBreadcrumb x:Name="BreadcrumbCtrl" Grid.Column="0"
+								CurrentPath="{Binding SelectedFolder.FullPath, Mode=OneWay}"
 								NavigateCommand="{Binding NavigateToPathCommand}"
-								Margin="10,0,10,0"
+								Margin="10,0,0,0"
 								Height="35"
 								NavigateSubCommand="{Binding NavigateToSubFolderCommand}"
 								GoBackCommand="{Binding GoBackCommand}"
@@ -25,5 +30,28 @@
 								CanGoBack="{Binding CanGoBack}"
 								CanGoForward="{Binding CanGoForward}">
 		</LRSCtrls:LRSBreadcrumb>
+		<StackPanel Grid.Column="1" Orientation="Horizontal" Margin="8,0,10,0" Spacing="4" VerticalAlignment="Center">
+			<Button x:Name="NewFolderButton" Click="OnNewFolderClick"
+					ToolTipService.ToolTip="在当前目录创建新文件夹"
+					Style="{StaticResource SubtleButtonStyle}"
+					Height="32" Padding="8,2">
+				<StackPanel Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+					<FontIcon Glyph="&#xE8B7;" FontSize="14"/>
+					<TextBlock Text="新建文件夹" FontSize="13"/>
+				</StackPanel>
+			</Button>
+			<Button x:Name="NewFileButton" Click="OnNewFileButtonClick"
+					ToolTipService.ToolTip="在当前目录创建新文件（行为可在设置中切换）"
+					Style="{StaticResource SubtleButtonStyle}"
+					Height="32" Padding="8,2">
+				<StackPanel Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+					<FontIcon Glyph="&#xE7C3;" FontSize="14"/>
+					<TextBlock Text="新建文件" FontSize="13"/>
+				</StackPanel>
+				<Button.Flyout>
+					<MenuFlyout x:Name="NewFileFlyout" Placement="Bottom"/>
+				</Button.Flyout>
+			</Button>
+		</StackPanel>
 	</Grid>
 </Page>

@@ -471,6 +471,14 @@ namespace LRS.UserControls
             }
         }
 
+        public void SelectItem(FileSystemNodeViewModel? item)
+        {
+            if (item == null) return;
+            SelectedItem = item;
+            FileListView.SelectedItem = item;
+            FileListView.ScrollIntoView(item);
+        }
+
         private void OnRenameTextBoxGotFocus(object sender, RoutedEventArgs e)
         {
             if (sender is TextBox textBox && textBox.Text.Length > 0)

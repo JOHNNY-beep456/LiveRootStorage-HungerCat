@@ -15,10 +15,14 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Runtime.InteropServices;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Media;
 
 namespace LRS.ViewModels
 {
@@ -187,12 +191,27 @@ namespace LRS.ViewModels
 		}
 
 		[RelayCommand]
-		private async Task NewFolder()
+		public async Task NewFolder()
 		{
-			var destDir = SelectedFolder?.FullPath ?? CurrentBreadcrumbPath;
-			var newPath = GenerateUniquePath(Path.Combine(destDir, "新建文件夹"));
-			Directory.CreateDirectory(newPath);
-			await RefreshCurrentFolder();
+			if (string.IsNullOrEmpty(SelectedFolder?.FullPath) && string.IsNullOrEmpty(CurrentBreadcrumbPath))
+			{
+				Debug.WriteLine("[NewFolder] No destination directory.");
+				return;
+			}
+			var req = new NewItemRequest(IsFolder: true, Extension: null, DefaultName: "新建文件夹");
+			var r = await ShowNewItemDialogAsync(req);
+			if (r == null) return;
+			try
+			{
+				Directory.CreateDirectory(r.FullPath);
+			}
+			catch (Exception ex)
+			{
+				Debug.WriteLine($"[NewFolder] CreateDirectory failed: {ex.Message}");
+				await ShowErrorDialogAsync("无法创建文件夹", ex.Message);
+				return;
+			}
+			await RefreshAndSelectAsync(r.FullPath);
 		}
 
 		[RelayCommand]
@@ -202,6 +221,238 @@ namespace LRS.ViewModels
 			var newPath = GenerateUniquePath(Path.Combine(destDir, "新建文本文档.txt"));
 			File.Create(newPath).Dispose();
 			await RefreshCurrentFolder();
+		}
+
+		public record NewFilePreset(string Extension, string DisplayName);
+
+		public static readonly IReadOnlyList<NewFilePreset> NewFilePresets = new List<NewFilePreset>
+		{
+			new(".txt",  "文本文档"),
+			new(".md",   "Markdown 文档"),
+			new(".docx", "Word 文档"),
+			new(".xlsx", "Excel 工作簿"),
+			new(".pptx", "PowerPoint 演示文稿"),
+			new(".json", "JSON 文件"),
+			new(".csv",  "CSV 文件"),
+		};
+
+		public async Task NewFileWithPresetAsync(NewFilePreset preset)
+		{
+			if (preset == null) return;
+			var req = new NewItemRequest(IsFolder: false, Extension: preset.Extension,
+				DefaultName: preset.DisplayName);
+			var r = await ShowNewItemDialogAsync(req);
+			if (r == null) return;
+			try
+			{
+				File.Create(r.FullPath).Dispose();
+			}
+			catch (Exception ex)
+			{
+				Debug.WriteLine($"[NewFile] Create failed: {ex.Message}");
+				await ShowErrorDialogAsync("无法创建文件", ex.Message);
+				return;
+			}
+			await RefreshAndSelectAsync(r.FullPath);
+		}
+
+		public async Task NewFileWithInputExtensionAsync()
+		{
+			var ext = await ShowExtensionPromptDialogAsync();
+			if (string.IsNullOrEmpty(ext)) return;
+			var req = new NewItemRequest(IsFolder: false, Extension: ext, DefaultName: "新建文件");
+			var r = await ShowNewItemDialogAsync(req);
+			if (r == null) return;
+			try
+			{
+				File.Create(r.FullPath).Dispose();
+			}
+			catch (Exception ex)
+			{
+				Debug.WriteLine($"[NewFile] Create failed: {ex.Message}");
+				await ShowErrorDialogAsync("无法创建文件", ex.Message);
+				return;
+			}
+			await RefreshAndSelectAsync(r.FullPath);
+		}
+
+		private async Task ShowErrorDialogAsync(string title, string message)
+		{
+			var xamlRoot = (App.MainWindow?.Content as FrameworkElement)?.XamlRoot;
+			if (xamlRoot == null) return;
+			var dlg = new ContentDialog
+			{
+				Title = title,
+				Content = message,
+				CloseButtonText = "确定",
+				DefaultButton = ContentDialogButton.Close,
+				XamlRoot = xamlRoot,
+			};
+			await dlg.ShowAsync();
+		}
+
+		public record NewItemRequest(bool IsFolder, string? Extension, string DefaultName);
+		public record NewItemResult(string Name, string FullPath);
+
+		public event Action<FileSystemNodeViewModel?>? RequestSelectItem;
+
+		private async Task<string?> ShowExtensionPromptDialogAsync()
+		{
+			var xamlRoot = (App.MainWindow?.Content as FrameworkElement)?.XamlRoot;
+			if (xamlRoot == null) return null;
+			var extBox = new TextBox { Text = ".txt", PlaceholderText = ".扩展名（包含点号）" };
+			var dlg = new ContentDialog
+			{
+				Title = "新建文件",
+				Content = extBox,
+				PrimaryButtonText = "下一步",
+				CloseButtonText = "取消",
+				DefaultButton = ContentDialogButton.Primary,
+				XamlRoot = xamlRoot,
+			};
+			if (await dlg.ShowAsync() != ContentDialogResult.Primary) return null;
+			var input = extBox.Text?.Trim() ?? "";
+			if (string.IsNullOrEmpty(input)) return null;
+			if (!input.StartsWith(".")) input = "." + input;
+			if (!Regex.IsMatch(input, @"^\.[A-Za-z0-9_\-]{1,16}$")) return null;
+			return input;
+		}
+
+		public async Task<NewItemResult?> ShowNewItemDialogAsync(NewItemRequest req)
+		{
+			var xamlRoot = (App.MainWindow?.Content as FrameworkElement)?.XamlRoot;
+			if (xamlRoot == null) return null;
+
+			var destDir = SelectedFolder?.FullPath ?? CurrentBreadcrumbPath;
+			if (string.IsNullOrEmpty(destDir)) return null;
+
+			var nameBox = new TextBox
+			{
+				Text = req.DefaultName,
+				PlaceholderText = req.IsFolder ? "文件夹名" : "文件名（不含扩展名）",
+				MinWidth = 280,
+			};
+			nameBox.GotFocus += (s, _) =>
+			{
+				if (s is TextBox tb) tb.SelectAll();
+			};
+			nameBox.Loaded += (s, _) =>
+			{
+				if (s is TextBox tb)
+				{
+					tb.Focus(FocusState.Programmatic);
+					tb.SelectAll();
+				}
+			};
+			var extLabel = req.IsFolder ? null : new TextBlock
+			{
+				Text = req.Extension ?? "",
+				VerticalAlignment = VerticalAlignment.Center,
+				Margin = new Thickness(6, 0, 0, 0),
+				FontSize = 14,
+			};
+			var errorText = new TextBlock
+			{
+				Foreground = new SolidColorBrush(Microsoft.UI.Colors.IndianRed),
+				FontSize = 12,
+				TextWrapping = TextWrapping.Wrap,
+				Visibility = Visibility.Collapsed,
+			};
+
+			var inputRow = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 0 };
+			inputRow.Children.Add(nameBox);
+			if (extLabel != null) inputRow.Children.Add(extLabel);
+
+			var stack = new StackPanel { Spacing = 8, MinWidth = 360 };
+			stack.Children.Add(inputRow);
+			stack.Children.Add(errorText);
+
+			var dlg = new ContentDialog
+			{
+				Title = req.IsFolder ? "新建文件夹" : "新建文件",
+				Content = stack,
+				PrimaryButtonText = "创建",
+				CloseButtonText = "取消",
+				DefaultButton = ContentDialogButton.Primary,
+				XamlRoot = xamlRoot,
+			};
+
+			void ShowError(string msg)
+			{
+				errorText.Text = msg;
+				errorText.Visibility = Visibility.Visible;
+			}
+
+			void ClearError()
+			{
+				errorText.Visibility = Visibility.Collapsed;
+				errorText.Text = "";
+			}
+
+			NewItemResult? validated = null;
+			nameBox.TextChanged += (_, _) => ClearError();
+
+			dlg.PrimaryButtonClick += (s, args) =>
+			{
+				var name = nameBox.Text?.Trim() ?? "";
+				if (string.IsNullOrEmpty(name))
+				{
+					ShowError("名称不能为空。");
+					args.Cancel = true;
+					return;
+				}
+				if (name.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0)
+				{
+					ShowError("名称包含非法字符。");
+					args.Cancel = true;
+					return;
+				}
+				if (name.EndsWith(".") || name.EndsWith(" "))
+				{
+					ShowError("名称不能以点或空格结尾。");
+					args.Cancel = true;
+					return;
+				}
+				var fullName = req.IsFolder ? name : $"{name}{req.Extension}";
+				var newPath = Path.Combine(destDir, fullName);
+				if (File.Exists(newPath) || Directory.Exists(newPath))
+				{
+					ShowError($"已存在同名项：{fullName}");
+					args.Cancel = true;
+					return;
+				}
+				validated = new NewItemResult(name, newPath);
+			};
+
+			var result = await dlg.ShowAsync();
+			return result == ContentDialogResult.Primary ? validated : null;
+		}
+
+		private async Task RefreshAndSelectAsync(string newPath)
+		{
+			// 如果 SelectedFolder 为空（如启动后立刻点击），用 CurrentBreadcrumbPath 兜底
+			if (SelectedFolder == null && !string.IsNullOrEmpty(CurrentBreadcrumbPath) && Directory.Exists(CurrentBreadcrumbPath))
+			{
+				NavigateToNewPath(CurrentBreadcrumbPath);
+			}
+
+			if (SelectedFolder != null)
+			{
+				// 强制重新读取子项，覆盖 LoadChildrenAsync 的 _isLoaded 早退
+				await SelectedFolder.ReloadAsync();
+				await UpdateCurrentFolderContentAsync(SelectedFolder);
+			}
+
+			var item = CurrentFolderContent.FirstOrDefault(
+				n => string.Equals(n.FullPath, newPath, StringComparison.OrdinalIgnoreCase));
+			if (item != null)
+			{
+				RequestSelectItem?.Invoke(item);
+			}
+			else
+			{
+				Debug.WriteLine($"[RefreshAndSelect] item not found in CurrentFolderContent: {newPath}");
+			}
 		}
 
 		[RelayCommand]
