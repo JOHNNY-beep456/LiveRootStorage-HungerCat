@@ -3,6 +3,7 @@ using LRS.ViewModels;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
@@ -71,12 +72,14 @@ namespace LRS.Views
 			if (mgr == null) return;
 
 			var buttons = mgr.GetTypedContributions<TopbarButtonContribution>()
-				.OrderBy(p => p.Contribution.Position, Comparer<int>.Default)
+				.OrderBy(p => p.Contribution.Position)
 				.ThenBy(p => p.ExtensionId, StringComparer.Ordinal)
 				.ToList();
 
-			foreach (var (extId, btn) in buttons)
+			foreach (var pair in buttons)
 			{
+				var extId = pair.ExtensionId;
+				var btn = pair.Contribution;
 				if (string.IsNullOrWhiteSpace(btn.Label) || string.IsNullOrWhiteSpace(btn.Command)) continue;
 				var b = new Button
 				{
@@ -84,8 +87,8 @@ namespace LRS.Views
 					Height = 32,
 					Padding = new Thickness(8, 2, 8, 2),
 					Tag = $"extension_dynamic:{extId}:{btn.Id}",
-					ToolTipService.ToolTip = btn.Label,
 				};
+				ToolTipService.SetToolTip(b, btn.Label);
 				var sp = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 6, VerticalAlignment = VerticalAlignment.Center };
 				sp.Children.Add(new FontIcon { Glyph = "\uE8E5", FontSize = 14 });
 				sp.Children.Add(new TextBlock { Text = btn.Label, FontSize = 13 });

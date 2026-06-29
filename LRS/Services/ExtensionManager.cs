@@ -46,7 +46,7 @@ namespace LRS.Services
             };
 
         private readonly string _extDirectory;
-        private readonly DispatcherQueue? _uiDispatcher;
+        private DispatcherQueue? _uiDispatcher;
         private readonly System.Timers.Timer _debounceTimer;
         private FileSystemWatcher? _watcher;
         private readonly SemaphoreSlim _reloadLock = new(1, 1);

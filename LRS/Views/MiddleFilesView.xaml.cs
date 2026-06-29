@@ -338,15 +338,13 @@ namespace LRS.Views
             var vm = this.DataContext as MainWindowViewModel;
             if (vm?.Extensions == null) return;
 
-            var paths = FileGrid.SelectedItems
-                .OfType<FileSystemNodeViewModel>()
-                .Select(n => n.FullPath)
-                .Where(p => !string.IsNullOrEmpty(p))
-                .ToList();
-            if (paths.Count == 0 && target != null) paths.Add(target.FullPath);
+            // TreeDataGrid 当前仅支持单选，target 即为右键选中的项；
+            // 因此 %F / %L 都用 target.FullPath。
+            var paths = new List<string>();
+            if (target != null && !string.IsNullOrEmpty(target.FullPath)) paths.Add(target.FullPath);
 
             var ctx = new ExtensionContext(
-                File: target?.FullPath ?? (paths.Count == 1 ? paths[0] : null),
+                File: target?.FullPath,
                 Directory: currentDirectory,
                 List: paths.Count > 0 ? paths : null);
 
