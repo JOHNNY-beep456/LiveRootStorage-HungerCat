@@ -1,0 +1,80 @@
+{
+  "id": "lrs.builtin.search",
+  "name": "搜索文件 / File Search",
+  "version": "1.0.0",
+  "type": "lrs-extension",
+  "author": "LRS Team",
+  "description": "通过 Windows Search (search-ms:) 协议在指定目录快速搜索文件；顶栏按钮、右键菜单、附加列、设置项齐全。",
+  "entry": "cmd.exe /c start \"\"",
+  "points": {
+    "topbar_buttons": [
+      {
+        "id": "search-current",
+        "label": "🔍 搜索",
+        "command": "cmd.exe /c start \"\" \"search-ms:query=&crumb=location:%D\"",
+        "position": 10
+      }
+    ],
+    "context_menu": [
+      {
+        "id": "search-in-folder",
+        "label": "在此文件夹中搜索…",
+        "applyTo": "Folder",
+        "command": "cmd.exe /c start \"\" \"search-ms:query=&crumb=location:%F\""
+      },
+      {
+        "id": "search-background",
+        "label": "在当前文件夹搜索…",
+        "applyTo": "Background",
+        "command": "cmd.exe /c start \"\" \"search-ms:query=&crumb=location:%D\""
+      },
+      {
+        "id": "search-by-name",
+        "label": "搜索同名文件（PowerShell 提取文件名）",
+        "applyTo": "File",
+        "command": "powershell.exe -NoProfile -Command \"$n=[System.IO.Path]::GetFileName('%F'); Start-Process explorer.exe -ArgumentList ('search-ms:query=' + $n)\""
+      }
+    ],
+    "file_columns": [
+      {
+        "id": "search_extension_col",
+        "header": "扩展名",
+        "value": "extension",
+        "width": 0.8
+      },
+      {
+        "id": "search_path_col",
+        "header": "完整路径",
+        "value": "path",
+        "width": 2.0
+      }
+    ],
+    "settings": [
+      {
+        "key": "defaultScope",
+        "label": "默认搜索范围（UI 占位）",
+        "type": "combo",
+        "default": "current",
+        "options": ["current", "libraries", "computer"]
+      },
+      {
+        "key": "rememberLastQuery",
+        "label": "记住上次搜索词",
+        "type": "toggle",
+        "default": "true"
+      },
+      {
+        "key": "maxResults",
+        "label": "最大结果数（UI 占位）",
+        "type": "number",
+        "default": "100"
+      },
+      {
+        "key": "customTemplate",
+        "label": "自定义 search-ms 模板（UI 占位）",
+        "type": "text",
+        "default": "search-ms:query=&crumb=location:%D"
+      }
+    ]
+  }
+}
