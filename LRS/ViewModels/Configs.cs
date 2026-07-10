@@ -1,8 +1,12 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.Extensions.Configuration;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
+using System.Text.Json;
 
 namespace LRS.ViewModels
 {
@@ -25,6 +29,27 @@ namespace LRS.ViewModels
         [ObservableProperty] private int _iconParallelLoadingCount = 30;
         [ObservableProperty] private string _homePageFullPath = "C:\\";
         [ObservableProperty] private string _defaultOrderMode = "ModifiedDesc";
+
+        // ---- 扩展系统持久化 ----
+        /// <summary>被禁用的扩展 ID 集合。ExtensionManager 在 InitializeAsync 前读取。</summary>
+        [ObservableProperty] private ObservableCollection<string> _extensionsDisabledIds = new();
+
+        /// <summary>各扩展的自定义设置值。键格式：<c>&lt;extensionId&gt;.&lt;key&gt;</c>。</summary>
+        private readonly Dictionary<string, string> _extensionSettings = new(StringComparer.Ordinal);
+
+        public IReadOnlyDictionary<string, string> ExtensionSettings => _extensionSettings;
+
+        public string GetExtensionSetting(string extensionId, string key, string fallback = "")
+        {
+            if (string.IsNullOrEmpty(extensionId) || string.IsNullOrEmpty(key)) return fallback;
+            return _extensionSettings.TryGetValue($"{extensionId}.{key}", out var v) ? v : fallback;
+        }
+
+        public void SetExtensionSetting(string extensionId, string key, string value)
+        {
+            if (string.IsNullOrEmpty(extensionId) || string.IsNullOrEmpty(key)) return;
+            _extensionSettings[$"{extensionId}.{key}"] = value ?? string.Empty;
+        }
 
         public Configs()
         {
@@ -59,27 +84,50 @@ namespace LRS.ViewModels
             IconParallelLoadingCount = configuration.GetValue("Performance:IconParallelLoadingCount", 30);
             DefaultOrderMode = configuration.GetValue("General:DefaultOrderMode", "ModifiedDesc")!;
             if (IconParallelLoadingCount != 0) IfLimitIconLoadingConcurrency = true;
+
+            // 扩展相关
+            ExtensionsDisabledIds.Clear();
+            foreach (var id in configuration.GetSection("Extensions:DisabledIds").Get<string[]>() ?? Array.Empty<string>())
+            {
+                if (!string.IsNullOrEmpty(id)) ExtensionsDisabledIds.Add(id);
+            }
+            _extensionSettings.Clear();
+            foreach (var kv in configuration.GetSection("Extensions:Settings").Get<Dictionary<string, string>>()
+                     ?? new Dictionary<string, string>())
+            {
+                if (!string.IsNullOrEmpty(kv.Key)) _extensionSettings[kv.Key] = kv.Value ?? string.Empty;
+            }
         }
 
         public void SaveConfig()
         {
-            var escapedPath = HomePageFullPath.Replace("\\", "\\\\").Replace("\"", "\\\"");
-            var json = string.Concat(
-                "{\n",
-                "  \"Appearance\": {\n",
-               $"    \"MiddleFilesHeight\": {MiddleFilesHeight}\n",
-                "  },\n",
-                "  \"Advanced\": {\n",
-               $"    \"ifUsesWin32APIToGetIcon\": {IfUsesWin32APIToGetIcon.ToString().ToLower()}\n",
-                "  },\n",
-                "  \"General\": {\n",
-               $"    \"HomePageFullPath\": \"{escapedPath}\",\n",
-               $"    \"DefaultOrderMode\": \"{DefaultOrderMode}\"\n",
-                "  },\n",
-                "  \"Performance\": {\n",
-               $"    \"IconParallelLoadingCount\": {IconParallelLoadingCount}\n",
-                "  }\n",
-                "}\n");
+            var extensions = new Dictionary<string, object?>
+            {
+                ["DisabledIds"] = ExtensionsDisabledIds.ToArray(),
+                ["Settings"] = new Dictionary<string, string>(_extensionSettings),
+            };
+            var root = new Dictionary<string, object?>
+            {
+                ["Appearance"] = new Dictionary<string, object?>
+                {
+                    ["MiddleFilesHeight"] = MiddleFilesHeight,
+                },
+                ["Advanced"] = new Dictionary<string, object?>
+                {
+                    ["ifUsesWin32APIToGetIcon"] = IfUsesWin32APIToGetIcon,
+                },
+                ["General"] = new Dictionary<string, object?>
+                {
+                    ["HomePageFullPath"] = HomePageFullPath,
+                    ["DefaultOrderMode"] = DefaultOrderMode,
+                },
+                ["Performance"] = new Dictionary<string, object?>
+                {
+                    ["IconParallelLoadingCount"] = IconParallelLoadingCount,
+                },
+                ["Extensions"] = extensions,
+            };
+            var json = JsonSerializer.Serialize(root, new JsonSerializerOptions { WriteIndented = true });
             File.WriteAllText(UserConfigPath, json);
             if (configuration != null)
             {

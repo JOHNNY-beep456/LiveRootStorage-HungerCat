@@ -31,6 +31,18 @@
 								CanGoForward="{Binding CanGoForward}">
 		</LRSCtrls:LRSBreadcrumb>
 		<StackPanel Grid.Column="1" Orientation="Horizontal" Margin="8,0,10,0" Spacing="4" VerticalAlignment="Center">
+			<Button x:Name="SearchButton" Click="OnSearchClick"
+					ToolTipService.ToolTip="搜索文件（Ctrl+F）"
+					Style="{StaticResource SubtleButtonStyle}"
+					Height="32" Padding="8,2">
+				<StackPanel Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+					<FontIcon Glyph="&#xE721;" FontSize="14"/>
+					<TextBlock Text="搜索" FontSize="13"/>
+				</StackPanel>
+				<Button.KeyboardAccelerators>
+					<KeyboardAccelerator Key="F" Modifiers="Control" Invoked="OnSearchAcceleratorInvoked"/>
+				</Button.KeyboardAccelerators>
+			</Button>
 			<Button x:Name="NewFolderButton" Click="OnNewFolderClick"
 					ToolTipService.ToolTip="在当前目录创建新文件夹"
 					Style="{StaticResource SubtleButtonStyle}"
@@ -52,6 +64,14 @@
 					<MenuFlyout x:Name="NewFileFlyout" Placement="Bottom"/>
 				</Button.Flyout>
 			</Button>
+			<!-- 扩展按钮容器：按 Position 升序填充 -->
+			<ItemsControl x:Name="ExtensionButtonsHost" VerticalAlignment="Center">
+				<ItemsControl.ItemsPanel>
+					<ItemsPanelTemplate>
+						<StackPanel Orientation="Horizontal" Spacing="4"/>
+					</ItemsPanelTemplate>
+				</ItemsControl.ItemsPanel>
+			</ItemsControl>
 		</StackPanel>
 	</Grid>
 </Page>
