@@ -38,6 +38,11 @@ namespace LRS.Views
 			DispatcherQueue.TryEnqueue(() => BreadcrumbCtrl.RefreshSegments());
 		}
 
+		private void OnSearchClick(object sender, RoutedEventArgs e)
+		{
+			App.SharedViewModel.ToggleSearch();
+		}
+
 		private void BuildNewFileFlyout()
 		{
 			NewFileFlyout.Items.Clear();

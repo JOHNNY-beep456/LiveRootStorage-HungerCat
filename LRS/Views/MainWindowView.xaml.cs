@@ -29,21 +29,30 @@ namespace LRS.Views
 
         private void OnVMPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(MainWindowViewModel.IsSettingsOpen))
+            if (e.PropertyName == nameof(MainWindowViewModel.IsSettingsOpen)
+                || e.PropertyName == nameof(MainWindowViewModel.IsSearchOpen))
                 UpdateRightPanel();
         }
 
         private void UpdateRightPanel()
         {
-            if (VM.IsSettingsOpen)
+            if (VM.IsSearchOpen)
+            {
+                MiddleFilesPanel.Visibility = Visibility.Collapsed;
+                SettingsPanelView.Visibility = Visibility.Collapsed;
+                SearchPanelView.Visibility = Visibility.Visible;
+            }
+            else if (VM.IsSettingsOpen)
             {
                 MiddleFilesPanel.Visibility = Visibility.Collapsed;
                 SettingsPanelView.Visibility = Visibility.Visible;
+                SearchPanelView.Visibility = Visibility.Collapsed;
             }
             else
             {
                 MiddleFilesPanel.Visibility = Visibility.Visible;
                 SettingsPanelView.Visibility = Visibility.Collapsed;
+                SearchPanelView.Visibility = Visibility.Collapsed;
             }
         }
 

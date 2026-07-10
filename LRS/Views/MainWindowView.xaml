@@ -40,6 +40,7 @@
 		<Grid Grid.Row="2" Grid.Column="2">
 			<views:MiddleFilesView x:Name="MiddleFilesPanel" />
 			<views:SettingsView x:Name="SettingsPanelView" Visibility="Collapsed" />
+			<views:SearchView x:Name="SearchPanelView" Visibility="Collapsed" />
 		</Grid>
 
 		<!-- 拖入扩展时的全屏覆盖层：默认隐藏，DragOver 时显示。放在 Grid 最后以保证绘制在最上层。-->
