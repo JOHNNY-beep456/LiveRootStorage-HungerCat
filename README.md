@@ -361,8 +361,8 @@ After editing a `.hlds` file, LRS **hot-reloads within 250ms** — no restart ne
 - [x] HLDS `.hlds` 扩展系统（右键菜单 / 顶栏 / 文件列 / 设置）
 - [ ] 多标签页 / Multi-tab browsing
 - [ ] 文件预览面板 / File preview pane
-- [ ] 暗色 / 亮色主题切换 / Theme switching
-- [ ] 文件搜索增强 / Enhanced search
+- [x] 暗色 / 亮色主题切换 / Theme switching
+- [x] 文件搜索增强 / Enhanced search
 - [ ] 网络位置 / Network locations
 
 ---
