@@ -530,20 +530,20 @@ namespace LRS.ViewModels
 			_search ??= new SearchViewModel(_uiDispatcherQueue);
 
 		[RelayCommand]
-		private void OpenSearch()
+		public void OpenSearch()
 		{
 			IsSettingsOpen = false;
 			IsSearchOpen = true;
 		}
 
 		[RelayCommand]
-		private void CloseSearch()
+		public void CloseSearch()
 		{
 			IsSearchOpen = false;
 		}
 
 		[RelayCommand]
-		private void ToggleSearch()
+		public void ToggleSearch()
 		{
 			if (IsSearchOpen) CloseSearch();
 			else OpenSearch();
