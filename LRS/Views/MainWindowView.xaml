@@ -29,7 +29,7 @@
         </Grid.ColumnDefinitions>
         <TitleBar x:Name="AppTitleBar"
                   Grid.ColumnSpan="3"
-              Title="LRS" Subtitle="0.0.5">
+              Title="HungerCat LRS" Subtitle="0.0.3-beta">
             <TitleBar.IconSource>
 				<FontIconSource Glyph="&#xE838;"/>
             </TitleBar.IconSource>
