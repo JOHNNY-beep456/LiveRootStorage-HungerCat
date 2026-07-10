@@ -521,6 +521,55 @@ namespace LRS.UserControls
                 }
             }
         }
+
+        // === HLDS 扩展：文件表列 ===
+
+        /// <summary>当前已注册到本控件的扩展列（来自 <see cref="LRS.Services.ExtensionManager"/>）。</summary>
+        public IReadOnlyList<LRS.Models.FileColumnContribution> ExtensionColumns { get; private set; } =
+            Array.Empty<LRS.Models.FileColumnContribution>();
+
+        /// <summary>
+        /// 由主程序在扩展热重载 / 初始化时调用，刷新扩展列缓存。
+        /// XAML 可在未来通过绑定此属性渲染动态列；目前仅作为 API 占位。
+        /// </summary>
+        public void SetExtensionColumns(IReadOnlyList<LRS.Models.FileColumnContribution> columns)
+        {
+            ExtensionColumns = columns ?? Array.Empty<LRS.Models.FileColumnContribution>();
+        }
+
+        /// <summary>
+        /// 把 <see cref="LRS.Models.FileColumnContribution.Value"/> 表达式解析为字符串。
+        /// 表达式仅支持 <c>length</c> / <c>modified</c> / <c>created</c> / <c>extension</c> /
+        /// <c>name</c> / <c>path</c> / <c>isfile</c> / <c>type</c>，其他返回空串。
+        /// </summary>
+        public static string ResolveExtensionCellValue(
+            LRS.Models.FileColumnContribution column,
+            FileSystemNodeViewModel node)
+        {
+            if (column == null || string.IsNullOrEmpty(column.Value) || node == null) return string.Empty;
+            switch (column.Value.Trim().ToLowerInvariant())
+            {
+                case "length":
+                    if (node.IsDirectory) return string.Empty;
+                    return node.VisualSize ?? string.Empty;
+                case "modified":
+                    return node.LastModifiedTimeString ?? string.Empty;
+                case "created":
+                    return node.FirstCreatedTimeString ?? string.Empty;
+                case "extension":
+                    return node.IsDirectory ? string.Empty : System.IO.Path.GetExtension(node.Name);
+                case "name":
+                    return node.Name;
+                case "path":
+                    return node.FullPath;
+                case "isfile":
+                    return node.IsDirectory ? "false" : "true";
+                case "type":
+                    return node.NodeTypeName;
+                default:
+                    return string.Empty;
+            }
+        }
     }
 
     public sealed class ResizeHandleGrid : Grid

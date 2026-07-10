@@ -494,13 +494,96 @@ namespace LRS.ViewModels
 		[ObservableProperty] private bool _canGoBack;
 		[ObservableProperty] private bool _canGoForward;
 		[ObservableProperty] private bool _isSettingsOpen;
+		[ObservableProperty] private bool _isSearchOpen;
 
-		public Microsoft.UI.Xaml.Visibility FileTableVisibility => IsSettingsOpen ? Microsoft.UI.Xaml.Visibility.Collapsed : Microsoft.UI.Xaml.Visibility.Visible;
+		public Microsoft.UI.Xaml.Visibility FileTableVisibility =>
+			(IsSettingsOpen || IsSearchOpen) ? Microsoft.UI.Xaml.Visibility.Collapsed : Microsoft.UI.Xaml.Visibility.Visible;
 		public Microsoft.UI.Xaml.Visibility SettingsVisibility => IsSettingsOpen ? Microsoft.UI.Xaml.Visibility.Visible : Microsoft.UI.Xaml.Visibility.Collapsed;
+		public Microsoft.UI.Xaml.Visibility SearchVisibility => IsSearchOpen ? Microsoft.UI.Xaml.Visibility.Visible : Microsoft.UI.Xaml.Visibility.Collapsed;
 		partial void OnIsSettingsOpenChanged(bool value)
 		{
 			OnPropertyChanged(nameof(FileTableVisibility));
 			OnPropertyChanged(nameof(SettingsVisibility));
+		}
+		partial void OnIsSearchOpenChanged(bool value)
+		{
+			OnPropertyChanged(nameof(FileTableVisibility));
+			OnPropertyChanged(nameof(SearchVisibility));
+			// 关闭搜索时清空结果
+			if (!value)
+			{
+				Search?.Clear();
+			}
+			else
+			{
+				// 打开搜索时同步当前目录作为默认搜索根
+				var root = SelectedFolder?.FullPath ?? CurrentBreadcrumbPath;
+				if (!string.IsNullOrEmpty(root)) Search?.SetRoot(root);
+			}
+		}
+
+		// ---- 搜索面板（集成在主程序内，不再依赖外部脚本/插件）----
+
+		private SearchViewModel? _search;
+		/// <summary>搜索面板的 ViewModel。首次访问时创建。</summary>
+		public SearchViewModel Search =>
+			_search ??= new SearchViewModel(_uiDispatcherQueue);
+
+		[RelayCommand]
+		public void OpenSearch()
+		{
+			IsSettingsOpen = false;
+			IsSearchOpen = true;
+		}
+
+		[RelayCommand]
+		public void CloseSearch()
+		{
+			IsSearchOpen = false;
+		}
+
+		[RelayCommand]
+		public void ToggleSearch()
+		{
+			if (IsSearchOpen) CloseSearch();
+			else OpenSearch();
+		}
+
+		/// <summary>
+		/// 用户在搜索结果里点了一项：跳到该文件所在的目录、关闭搜索面板、选中文件。
+		/// </summary>
+		public async Task NavigateToResultAsync(SearchResultItem item)
+		{
+			if (item == null) return;
+			var targetPath = item.IsDirectory ? item.FullPath : item.ParentPath;
+			if (string.IsNullOrEmpty(targetPath) || !Directory.Exists(targetPath)) return;
+
+			try
+			{
+				CloseSearch();
+
+				// 找到或创建目标目录节点
+				var targetNode = FindNodeByPath(targetPath)
+					?? new FileSystemNodeViewModel(targetPath, true, false, _appConfigs, _uiDispatcherQueue, false);
+
+				// 切换到目标目录
+				_previousPath = null;
+				SelectedFolder = targetNode;
+
+				// 等待 CurrentFolderContent 刷新完成，再选中目标文件
+				await UpdateCurrentFolderContentAsync(targetNode);
+
+				if (!item.IsDirectory)
+				{
+					var match = CurrentFolderContent.FirstOrDefault(
+						n => string.Equals(n.FullPath, item.FullPath, StringComparison.OrdinalIgnoreCase));
+					if (match != null) RequestSelectItem?.Invoke(match);
+				}
+			}
+			catch (Exception ex)
+			{
+				Debug.WriteLine($"[MainWindowViewModel] NavigateToResultAsync failed: {ex}");
+			}
 		}
 		public SemaphoreSlim IconLoadSemaphore = new(30, 30); // 最多30个并发
 		private readonly Stack<string> _backStack = new();
@@ -764,6 +847,45 @@ namespace LRS.ViewModels
 				}
 			}
 			return null;
+		}
+
+		// ---- 扩展系统（HLDS）----
+
+		private ExtensionManager? _extensions;
+
+		/// <summary>
+		/// 通过 <see cref="App.Services"/> 懒解析的扩展管理器。
+		/// 在 <c>App.OnLaunched</c> 中已 <c>InitializeAsync</c> 完毕。
+		/// </summary>
+		public ExtensionManager? Extensions
+		{
+			get
+			{
+				if (_extensions == null && App.Services != null)
+				{
+					try { _extensions = App.Services.GetService(typeof(ExtensionManager)) as ExtensionManager; }
+					catch { _extensions = null; }
+				}
+				return _extensions;
+			}
+		}
+
+		/// <summary>当前已加载的扩展清单（来自 <see cref="ExtensionManager"/>）。</summary>
+		public IReadOnlyList<ExtensionManager.LoadedExtension> LoadedExtensions
+			=> Extensions?.LoadedExtensions
+			   ?? Array.Empty<ExtensionManager.LoadedExtension>();
+
+		/// <summary>是否存在任意已加载扩展（用于设置页 / 顶栏的空状态）。</summary>
+		public bool HasAnyExtensions => LoadedExtensions.Count > 0;
+
+		/// <summary>
+		/// 当扩展被热重载 / 启用 / 禁用时调用，通知各 UI 刷新（右键菜单 / 顶栏按钮 / 设置页等）。
+		/// </summary>
+		public void OnExtensionsChanged()
+		{
+			OnPropertyChanged(nameof(Extensions));
+			OnPropertyChanged(nameof(LoadedExtensions));
+			OnPropertyChanged(nameof(HasAnyExtensions));
 		}
 	}
 }

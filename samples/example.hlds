@@ -1,0 +1,92 @@
+{
+  "id": "com.example.lrs.sample",
+  "name": "示例扩展 / Sample Extension",
+  "version": "1.0.0",
+  "type": "lrs-extension",
+  "author": "LRS Team",
+  "description": "覆盖全部 4 个扩展点：右键菜单 / 顶栏按钮 / 文件列 / 设置项。",
+  "entry": "cmd.exe /c echo %F",
+  "points": {
+    "context_menu": [
+      {
+        "id": "open_with_notepad",
+        "label": "用记事本打开",
+        "applyTo": "File",
+        "command": "notepad.exe \"%F\""
+      },
+      {
+        "id": "copy_full_path",
+        "label": "复制完整路径",
+        "applyTo": "Any",
+        "command": "powershell.exe -NoProfile -Command \"Set-Clipboard -Value '%F'\""
+      },
+      {
+        "id": "open_terminal_here",
+        "label": "在此处打开终端",
+        "applyTo": "Folder",
+        "command": "wt.exe -d \"%D\""
+      }
+    ],
+    "topbar_buttons": [
+      {
+        "id": "sample_git_pull",
+        "label": "Git Pull",
+        "command": "git.exe -C \"%D\" pull",
+        "position": 50
+      },
+      {
+        "id": "sample_git_status",
+        "label": "Git Status",
+        "command": "git.exe -C \"%D\" status",
+        "position": 51
+      }
+    ],
+    "file_columns": [
+      {
+        "id": "sample_extension",
+        "header": "扩展名",
+        "value": "extension",
+        "width": 1.0
+      },
+      {
+        "id": "sample_size_kb",
+        "header": "大小 (KB)",
+        "value": "length",
+        "width": 1.0
+      },
+      {
+        "id": "sample_path",
+        "header": "完整路径",
+        "value": "path",
+        "width": 2.0
+      }
+    ],
+    "settings": [
+      {
+        "key": "autoRefresh",
+        "label": "操作后自动刷新",
+        "type": "toggle",
+        "default": "true"
+      },
+      {
+        "key": "maxHistory",
+        "label": "历史记录保留数",
+        "type": "number",
+        "default": "50"
+      },
+      {
+        "key": "defaultEditor",
+        "label": "默认编辑器",
+        "type": "combo",
+        "default": "notepad",
+        "options": ["notepad", "code", "subl", "vim"]
+      },
+      {
+        "key": "commandTemplate",
+        "label": "自定义命令模板",
+        "type": "text",
+        "default": "echo %F"
+      }
+    ]
+  }
+}

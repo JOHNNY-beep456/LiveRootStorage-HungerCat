@@ -61,6 +61,9 @@ namespace LRS
 				services.AddSingleton<IIconProvider, WindowsIconProvider>();
 				services.AddSingleton<IFileOperator, FileOperator>();
 				services.AddSingleton<ShellContextMenuService>();
+				// ExtensionManager 在 Services 中暴露；构造时不需要 DispatcherQueue，
+				// OnLaunched 中会通过 SetDispatcher 注入并 InitializeAsync。
+				services.AddSingleton<ExtensionManager>();
 			}).Build();
             Services = _host.Services;
 			this.UnhandledException += (s, e) =>
@@ -85,6 +88,28 @@ namespace LRS
 			var iconProvider = Services.GetRequiredService<IIconProvider>();
 			var shellContextMenu = Services.GetRequiredService<ShellContextMenuService>();
 			SharedViewModel = new MainWindowViewModel(iconProvider, dispatcher, configs, fileOperator, shellContextMenu);
+
+			// 初始化扩展系统：注入 DispatcherQueue（用于把 Changed 事件 marshal 回 UI 线程），
+			// 把 Configs 中持久化的禁用集合灌入，再扫描 ./ext/ 目录。
+			var extensions = Services.GetRequiredService<ExtensionManager>();
+			extensions.SetDispatcher(dispatcher);
+			extensions.LoadDisabledIds(configs.ExtensionsDisabledIds);
+			try
+			{
+				using var initCts = new System.Threading.CancellationTokenSource(
+					TimeSpan.FromMilliseconds(1500));
+				await extensions.InitializeAsync(initCts.Token);
+			}
+			catch (OperationCanceledException)
+			{
+				Debug.WriteLine("[App] ExtensionManager.InitializeAsync timed out (>1.5s).");
+			}
+			catch (Exception ex)
+			{
+				Debug.WriteLine($"[App] ExtensionManager.InitializeAsync failed: {ex.Message}");
+			}
+			// 订阅热重载，刷新各 UI
+			extensions.Changed += (_, _) => SharedViewModel.OnExtensionsChanged();
 
 			_window = new Views.MainWindowView();
 			MainWindow = _window;

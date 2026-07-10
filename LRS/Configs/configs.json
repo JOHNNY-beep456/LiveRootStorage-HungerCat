@@ -1,6 +1,19 @@
-﻿{
-  "App": {
-    "Inited": false,
-    "Mode": "Debug"
+{
+  "Appearance": {
+    "MiddleFilesHeight": 40
+  },
+  "Advanced": {
+    "ifUsesWin32APIToGetIcon": true
+  },
+  "General": {
+    "HomePageFullPath": "C:\\",
+    "DefaultOrderMode": "ModifiedDesc"
+  },
+  "Performance": {
+    "IconParallelLoadingCount": 30
+  },
+  "Extensions": {
+    "DisabledIds": [],
+    "Settings": {}
   }
 }

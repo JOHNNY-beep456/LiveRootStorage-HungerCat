@@ -9,7 +9,9 @@ using Microsoft.UI.Xaml.Media;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace LRS.Views
 {
@@ -172,6 +174,9 @@ namespace LRS.Views
                 secondary.Insert(insertPos, btn);
                 insertPos++;
             }
+
+            // 在 Shell 动态项之后再追加扩展项
+            AppendExtensionContextMenuItems(_itemContextFlyout, item, vm.CurrentBreadcrumbPath);
         }
 
         private void OnBaseFlyoutOpening(object? sender, object e)
@@ -226,6 +231,9 @@ namespace LRS.Views
                 btn.Click += (s, args) => OnShellMenuItemClick(shellItem, folderPath);
                 secondary.Insert(insertPos, btn);
             }
+
+            // 追加扩展项到背景菜单
+            AppendExtensionContextMenuItems(_baseContextFlyout, target: null, currentDirectory: folderPath);
         }
 
         private void OnShellMenuItemClick(ShellMenuItem menuItem, string filePath)
@@ -234,6 +242,124 @@ namespace LRS.Views
             if (vm == null) return;
 
             vm.ShellContextMenu.ExecuteMenuItem(menuItem, filePath);
+        }
+
+        // === HLDS 扩展：右键菜单贡献 ===
+
+        /// <summary>
+        /// 把当前已加载扩展的 <c>points.context_menu</c> 项追加到指定 flyout。
+        /// 同一 flyout 上旧的扩展项（Tag=<c>"extension_dynamic:*"</c>）先被清空。
+        /// </summary>
+        /// <param name="flyout">要注入的右键菜单。</param>
+        /// <param name="target">本次右键的目标（用于 <see cref="ContextMenuApplyTo"/> 过滤）。</param>
+        /// <param name="currentDirectory">当前目录（用于 <c>Background</c> 时的 <c>%D</c>）。</param>
+        private void AppendExtensionContextMenuItems(
+            CommandBarFlyout flyout,
+            FileSystemNodeViewModel? target,
+            string currentDirectory)
+        {
+            if (flyout == null) return;
+            var vm = this.DataContext as MainWindowViewModel;
+            if (vm?.Extensions == null) return;
+
+            var secondary = flyout.SecondaryCommands;
+
+            // 清掉旧的扩展项
+            for (int i = secondary.Count - 1; i >= 0; i--)
+            {
+                if (secondary[i] is AppBarButton btn
+                    && btn.Tag is string tagStr
+                    && tagStr.StartsWith("extension_dynamic:", StringComparison.Ordinal))
+                {
+                    secondary.RemoveAt(i);
+                }
+            }
+
+            var typed = vm.Extensions.GetTypedContributions<ContextMenuContribution>();
+            if (typed.Count == 0) return;
+
+            // 决定插入位置：尽量放到 flyout 末尾、Shell 项之前
+            int insertPos = secondary.Count;
+            for (int i = secondary.Count - 1; i >= 0; i--)
+            {
+                if (secondary[i] is AppBarSeparator)
+                {
+                    insertPos = i;
+                    break;
+                }
+            }
+
+            // 在插入位置前再放一个分隔符（让扩展项与内置项明显分组）
+            secondary.Insert(insertPos, new AppBarSeparator());
+            insertPos++;
+
+            foreach (var (extId, item) in typed)
+            {
+                if (!ShouldApplyTo(item.ApplyTo, target)) continue;
+                if (string.IsNullOrWhiteSpace(item.Label) || string.IsNullOrWhiteSpace(item.Command)) continue;
+
+                var btn = new AppBarButton
+                {
+                    Label = item.Label,
+                    Icon = new FontIcon { Glyph = "\uE8E5", FontSize = 16 },
+                    Tag = $"extension_dynamic:{extId}:{item.Id}",
+                };
+                var capturedExtId = extId;
+                var capturedCmdId = item.Id;
+                var capturedItem = item;
+                btn.Click += async (s, args) =>
+                {
+                    await OnExtensionMenuItemClick(capturedExtId, capturedCmdId, capturedItem, target, currentDirectory);
+                };
+                secondary.Insert(insertPos, btn);
+                insertPos++;
+            }
+        }
+
+        private static bool ShouldApplyTo(ContextMenuApplyTo applyTo, FileSystemNodeViewModel? target)
+        {
+            return applyTo switch
+            {
+                ContextMenuApplyTo.Any => true,
+                ContextMenuApplyTo.File => target != null && !target.IsDirectory,
+                ContextMenuApplyTo.Folder => target != null && target.IsDirectory,
+                ContextMenuApplyTo.Background => target == null,
+                _ => true,
+            };
+        }
+
+        private async Task OnExtensionMenuItemClick(
+            string extensionId,
+            string commandId,
+            ContextMenuContribution contribution,
+            FileSystemNodeViewModel? target,
+            string currentDirectory)
+        {
+            var vm = this.DataContext as MainWindowViewModel;
+            if (vm?.Extensions == null) return;
+
+            // TreeDataGrid 当前仅支持单选，target 即为右键选中的项；
+            // 因此 %F / %L 都用 target.FullPath。
+            var paths = new List<string>();
+            if (target != null && !string.IsNullOrEmpty(target.FullPath)) paths.Add(target.FullPath);
+
+            var ctx = new ExtensionContext(
+                File: target?.FullPath,
+                Directory: currentDirectory,
+                List: paths.Count > 0 ? paths : null);
+
+            try
+            {
+                var result = await vm.Extensions.ExecuteAsync(extensionId, commandId, ctx);
+                if (result.ExitCode != 0)
+                {
+                    Debug.WriteLine($"[Extension] '{extensionId}/{commandId}' exit={result.ExitCode} err={result.Error}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"[Extension] click handler failed: {ex.Message}");
+            }
         }
 
         private AppBarButton ThemedBtn(string label, string styleKey, RoutedEventHandler? click)

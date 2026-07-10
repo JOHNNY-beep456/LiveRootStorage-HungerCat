@@ -89,6 +89,28 @@
 				<TextBlock Text="本来要写路径的，但绑定一直失效，暂时弃用" />
 			</comCtrls:SettingsCard>
 
+			<!-- 扩展 / Extensions -->
+			<TextBlock Text="扩展 / Extensions" FontSize="16" FontWeight="SemiBold" Margin="0,12,0,0" />
+			<comCtrls:SettingsCard Header="扩展扫描目录">
+				<comCtrls:SettingsCard.HeaderIcon>
+					<FontIcon Glyph="&#xE8B7;" />
+				</comCtrls:SettingsCard.HeaderIcon>
+				<TextBlock x:Name="ExtensionDirectoryText" TextWrapping="Wrap"
+						   FontFamily="Consolas, Cascadia Mono, monospace" FontSize="12" />
+			</comCtrls:SettingsCard>
+			<comCtrls:SettingsCard Header="当前已加载的扩展">
+				<comCtrls:SettingsCard.HeaderIcon>
+					<FontIcon Glyph="&#xE71D;" />
+				</comCtrls:SettingsCard.HeaderIcon>
+				<StackPanel x:Name="ExtensionsContainer" Spacing="8" />
+			</comCtrls:SettingsCard>
+			<comCtrls:SettingsCard Header="扩展提供的设置项">
+				<comCtrls:SettingsCard.HeaderIcon>
+					<FontIcon Glyph="&#xE713;" />
+				</comCtrls:SettingsCard.HeaderIcon>
+				<StackPanel x:Name="ExtensionSettingsContainer" Spacing="8" />
+			</comCtrls:SettingsCard>
+
 			<Button x:Name="SaveButton" Click="SaveSettings" Margin="0,12,0,0"
 					Style="{StaticResource AccentButtonStyle}"
                     HorizontalAlignment="Left">保存设置</Button>

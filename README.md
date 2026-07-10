@@ -29,8 +29,9 @@ LRS-HungerCat is a modern file manager built on **WinUI 3 / Windows App SDK**, f
 3. [项目结构 / Project Structure](#3-项目结构--project-structure)
 4. [配置 / Configuration](#4-配置--configuration)
 5. [开发说明 / Development Notes](#5-开发说明--development-notes)
-6. [路线图 / Roadmap](#6-路线图--roadmap)
-7. [许可证 / License](#7-许可证--license)
+6. [扩展开发 / Extension Development](#6-扩展开发--extension-development)
+7. [路线图 / Roadmap](#7-路线图--roadmap)
+8. [许可证 / License](#8-许可证--license)
 
 ---
 
@@ -193,12 +194,171 @@ Runtime configuration lives in `LRS/Configs/configs.json` and **hot-reloads** on
 
 ---
 
-## 6. 路线图 / Roadmap
+## 6. 扩展开发 / Extension Development
+
+LRS 支持通过仓库根 `./ext/` 下的 `.hlds` 文件扩展右键菜单、顶栏按钮、文件列与设置项。**无需修改主程序源码，无需重新编译。**
+
+LRS supports extending the right-click menu, top-bar buttons, file columns and settings via `.hlds` files under the repo-root `./ext/`. **No main-program changes or recompile required.**
+
+### 6.1 扩展目录 / Extension directory
+
+| 模式 / Mode | 实际路径 / Actual path                            |
+| ----------- | -------------------------------------------------- |
+| 开发 / Dev   | `<repo>/ext/*.hlds` （由 csproj 拷贝到输出）       |
+| 部署 / Prod  | `AppContext.BaseDirectory/ext/*.hlds`              |
+
+> 在设置页「扩展 / Extensions」段可查看实际扫描目录与加载状态。
+> The settings page's *Extensions* section shows the actual scan directory and load state.
+
+修改 `.hlds` 文件后，**250ms 内自动热重载**，无需重启 LRS。
+After editing a `.hlds` file, LRS **hot-reloads within 250ms** — no restart needed.
+
+### 6.2 `.hlds` 字段 / Fields
+
+`.hlds` 是 JSON 文件。**`id` 不可包含 `:`**。
+
+| 字段 / Field    | 类型 / Type | 必填 / Required | 说明 / Description |
+| --------------- | ----------- | :-------------: | ------------------- |
+| `id`            | string      | ✅              | 扩展唯一 ID，目录内不重复 |
+| `name`          | string      | ✅              | 显示名 |
+| `version`       | string      | ✅              | 语义化版本号（仅展示） |
+| `type`          | string      | ✅              | 固定为 `"lrs-extension"` |
+| `entry`         | string      | ✅              | 命令模板（见 §6.4 占位符） |
+| `points`        | object      | ✅              | 4 个扩展点（见 §6.3） |
+| `author`        | string      | ❌              | 作者 |
+| `description`   | string      | ❌              | 描述 |
+
+### 6.3 4 个扩展点 / 4 Extension Points
+
+#### 6.3.1 `context_menu` — 右键菜单 / Right-click menu
+
+```jsonc
+"context_menu": [
+  {
+    "id": "open_with_notepad",   // 唯一命令 ID
+    "label": "用记事本打开",     // 菜单显示文本
+    "applyTo": "File",            // Any | File | Folder | Background
+    "command": "notepad.exe \"%F\""
+  }
+]
+```
+
+- `applyTo: Any` — 任意位置都注入
+- `applyTo: File` — 仅当右键目标是文件时
+- `applyTo: Folder` — 仅当右键目标是文件夹时
+- `applyTo: Background` — 仅当右键空白区域时
+
+#### 6.3.2 `topbar_buttons` — 顶栏按钮 / Top-bar buttons
+
+```jsonc
+"topbar_buttons": [
+  {
+    "id": "git_pull",
+    "label": "Git Pull",
+    "command": "git.exe -C \"%D\" pull",
+    "position": 50
+  }
+]
+```
+
+- `position` 越小越靠左；缺省时按扩展 `id` 字典序。
+
+#### 6.3.3 `file_columns` — 文件表列 / File list columns
+
+```jsonc
+"file_columns": [
+  {
+    "id": "col_ext",
+    "header": "扩展名",
+    "value": "extension",       // 预定义表达式
+    "width": 1.0
+  }
+]
+```
+
+`value` 必须是以下预定义表达式之一（**不支持**任意运行时表达式）：
+
+| 表达式 / Expr | 输出 / Output                    |
+| ------------- | --------------------------------- |
+| `length`      | 文件大小（文件夹为空）             |
+| `modified`    | 最后修改时间                      |
+| `created`     | 创建时间                          |
+| `extension`   | 文件扩展名（含点）                |
+| `name`        | 名称                              |
+| `path`        | 完整路径                          |
+| `isfile`      | `"true"` / `"false"`             |
+| `type`        | 节点类型名                        |
+
+#### 6.3.4 `settings` — 设置项 / Extension settings
+
+```jsonc
+"settings": [
+  {
+    "key": "autoRefresh",     // 在设置页保存时存到 Extensions.Settings[<id>.<key>]
+    "label": "操作后自动刷新",
+    "type": "toggle",          // toggle | number | text | combo
+    "default": "true"
+  },
+  {
+    "key": "defaultEditor",
+    "label": "默认编辑器",
+    "type": "combo",
+    "default": "notepad",
+    "options": ["notepad", "code", "subl", "vim"]
+  }
+]
+```
+
+- `toggle` → 渲染为 `ToggleSwitch`（存 `"true"` / `"false"`）
+- `number` → 渲染为 `NumberBox`
+- `text` → 渲染为 `TextBox`
+- `combo` → 渲染为 `ComboBox`（必须提供 `options`）
+
+### 6.4 占位符 / Placeholders
+
+命令模板（`entry` 与每个 contribution 的 `command` 字段）支持以下占位符：
+
+| 占位符 / Placeholder | 替换为 / Replaced with                                |
+| -------------------- | ------------------------------------------------------ |
+| `%F`                 | 当前右键/选中的文件路径                                |
+| `%D`                 | 当前目录                                              |
+| `%L`                 | 多选时所有选中项的路径，分号 `;` 分隔                  |
+
+### 6.5 JSON 转义注意 / JSON escaping
+
+> ⚠️ Windows 路径分隔符是 `\` ，在 JSON 字符串中必须写成 `\\`。
+> ⚠️ Windows path separators are `\` — in JSON strings, write `\\` instead.
+
+✅ 正确 / Correct：
+```json
+"command": "notepad.exe \"C:\\Users\\me\\file.txt\""
+```
+
+❌ 错误 / Wrong：
+```json
+"command": "notepad.exe \"C:\Users\me\file.txt\""
+```
+
+### 6.6 调试 / Debugging
+
+- 启动时单文件失败会写到 **Debug 输出**（`Output` 窗口 / `Debug.WriteLine`），**不阻塞**其他扩展加载（失败隔离）。
+- 加载失败的扩展不会出现在设置页「扩展」列表中。
+- 进程退出码非 0 时，`stdout` / `stderr` 同样写入 Debug 输出。
+- 设置页「扩展」段下方展示扫描目录与已加载列表，便于核对。
+
+### 6.7 完整示例 / Full example
+
+参见 [`samples/example.hlds`](./samples/example.hlds)，覆盖全部 4 个扩展点。
+
+---
+
+## 7. 路线图 / Roadmap
 
 - [x] 基础文件浏览（目录树 + 文件列表 + 面包屑）
 - [x] 系统 Shell 右键菜单动态集成
 - [x] 配置热重载
 - [x] 解包 + 自包含发布
+- [x] HLDS `.hlds` 扩展系统（右键菜单 / 顶栏 / 文件列 / 设置）
 - [ ] 多标签页 / Multi-tab browsing
 - [ ] 文件预览面板 / File preview pane
 - [ ] 暗色 / 亮色主题切换 / Theme switching
@@ -207,7 +367,7 @@ Runtime configuration lives in `LRS/Configs/configs.json` and **hot-reloads** on
 
 ---
 
-## 7. 许可证 / License
+## 8. 许可证 / License
 
 本项目基于 [LICENSE.txt](./LICENSE.txt) 开源发布。
 

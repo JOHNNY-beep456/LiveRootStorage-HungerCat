@@ -4,7 +4,7 @@ using System;
 
 namespace LRS.UserControls
 {
-    public class LastToVisibilityConverter : IValueConverter
+    public sealed class LastToVisibilityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {

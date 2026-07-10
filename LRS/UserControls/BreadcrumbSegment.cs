@@ -1,6 +1,6 @@
 namespace LRS.UserControls
 {
-    public class BreadcrumbSegment
+    public sealed class BreadcrumbSegment
     {
         public string DisplayName { get; set; } = string.Empty;
         public string FullPath { get; set; } = string.Empty;
