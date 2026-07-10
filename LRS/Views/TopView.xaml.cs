@@ -2,6 +2,7 @@
 using LRS.ViewModels;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Input;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -40,6 +41,13 @@ namespace LRS.Views
 
 		private void OnSearchClick(object sender, RoutedEventArgs e)
 		{
+			App.SharedViewModel.ToggleSearch();
+		}
+
+		/// <summary>Ctrl+F 快捷键处理：复用同一个 ToggleSearch，避免 Click 事件重复触发。</summary>
+		private void OnSearchAcceleratorInvoked(KeyboardAccelerator sender, KeyboardAcceleratorInvokedEventArgs args)
+		{
+			args.Handled = true;
 			App.SharedViewModel.ToggleSearch();
 		}
 

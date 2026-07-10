@@ -34,15 +34,13 @@
 			<Button x:Name="SearchButton" Click="OnSearchClick"
 					ToolTipService.ToolTip="搜索文件（Ctrl+F）"
 					Style="{StaticResource SubtleButtonStyle}"
-					Height="32" Padding="8,2"
-					KeyboardAcceleratorsMode="Enabled"
-					AccessKey="S">
+					Height="32" Padding="8,2">
 				<StackPanel Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
 					<FontIcon Glyph="&#xE721;" FontSize="14"/>
 					<TextBlock Text="搜索" FontSize="13"/>
 				</StackPanel>
 				<Button.KeyboardAccelerators>
-					<KeyboardAccelerator Key="F" Modifiers="Control"/>
+					<KeyboardAccelerator Key="F" Modifiers="Control" Invoked="OnSearchAcceleratorInvoked"/>
 				</Button.KeyboardAccelerators>
 			</Button>
 			<Button x:Name="NewFolderButton" Click="OnNewFolderClick"
